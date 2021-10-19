@@ -1,0 +1,26 @@
+.container{
+    background-color: rgb(225, 239, 250);
+    height: 100vh;
+    width: 100vw;
+}
+
+.heading{
+    font-family: 'Neuton', serif;
+    color: black;
+}
+
+.content{
+    font-family: 'Eczar', serif;
+    color: black;
+}
+
+.ip{
+    height: 2em;
+    border-radius: 10% 10% 20% 20%;
+}
+
+#btn{
+    /* border: 1px solid black; */
+    margin: 2em;
+    /* width: fit-content;     */
+}
