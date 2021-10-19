@@ -43,7 +43,7 @@ render(){
    answer=(<div id="result">{result} : <span>{this.state.bmi}</span></div>)
     }
     return(
-        <div class="container">
+        <div className="container">
         <h1>BMI Calculator</h1>
         <p>Height (in cm)</p>
         <input type="text" id="height" onChange={(e)=>weighthandler(e)} value={this.state.wval}></input>
@@ -51,7 +51,7 @@ render(){
         <input type="text" id="weight" onChange={(e)=>heighthandler(e)} value={this.state.hval}></input>
         <button id="btn" onClick={(e)=>reshandler(e)}>Calculate</button>
         {answer}
-       <div class='error'>{this.state.errorMessage}</div>
+       <div className='error'>{this.state.errorMessage}</div>
     </div>
     )
 }
