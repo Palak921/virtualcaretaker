@@ -7,6 +7,8 @@ import {Route, BrowserRouter} from 'react-router-dom';
 
 import BMICalculater from './bmi/Bmicalc';
 import Caloriecounter from './bmi/Caloriecounter'
+import './App.css';
+import Mainpage from './Mainpage';
 function App() {
   const store = createStore(reducer)
   return (
@@ -20,11 +22,13 @@ function App() {
      </BrowserRouter>
     {/* <div className="App"> */}
       {/* <BMICalculater></BMICalculater> */}
+    {/* <div className="App"> */}
+      {/* <Mainpage></Mainpage> */}
+      {/*<BMICalculater></BMICalculater>*/}
      {/* <Caloriecounter></Caloriecounter>*/}
     </div>
     </Provider>
     
   );
 }
-
 export default App;

@@ -58,7 +58,7 @@ render(){
         <Button  variant="contained" onCLick={(e) => reshandler(e)}>Calculator</Button>
         </div>
         {answer}
-       <div class='error'>{this.state.errorMessage}</div>
+       <div className='error'>{this.state.errorMessage}</div>
     </div>
     )
 }
