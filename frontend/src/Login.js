@@ -141,7 +141,6 @@ class Auth extends Component {
                 <div>
                     <h1 className={classes.content}>VIRTUAL CARETAKER</h1>
                 </div>
-<<<<<<< HEAD:src/Login.js
                 <div className={classes.flex}>
                     <div className={classes.Auth}>
                         {errormessage}
@@ -156,16 +155,6 @@ class Auth extends Component {
                     </div>
                 </div>
 
-=======
-            <div className={classes.Auth}>
-                {errormessage}
-                <form onSubmit={this.submitHandler}>
-                    {form}
-                    <Button type='submit' variant="contained" btnType="Success">SUBMIT</Button>
-                </form>
-                <Button onClick={this.switchAuthModeHandler}btnType='Danger'>SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
-            </div>
->>>>>>> 28f6d49e042cfc238a0d05e9b2915a05295b4fc0:frontend/src/Login.js
             </div>
 
         );
