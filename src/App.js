@@ -14,15 +14,12 @@ function App() {
   return (
     <Provider store={store}>
     <div className="App App-header">
-     {/* <Auth/> */}
      <BrowserRouter>
      <Route path="/" exact component={Auth}/>
      <Route path="/bmi" exact component={BMICalculater}/>
      <Route path="/cal" exact component={Caloriecounter}/>
+     <Route path="/main" exact component={Mainpage}/>
      </BrowserRouter>
-    {/* <div className="App"> */}
-      {/* <BMICalculater></BMICalculater> */}
-    {/* <div className="App"> */}
       {/* <Mainpage></Mainpage> */}
       {/*<BMICalculater></BMICalculater>*/}
      {/* <Caloriecounter></Caloriecounter>*/}

@@ -4,9 +4,9 @@
     text-align: center;
     box-shadow: 0 2px 3px rgb(8, 8, 8);
     border: 1px solid rgb(88, 124, 202);
-    padding: 30px 10px 10px 10px;
+    padding: 20px 1px 1px 10px;
     box-sizing: border-box;
-    background-color: rgb(106, 140, 211);
+    background-color: #6a8cd3;
     border-radius: 1em;
     /* color: #fff; */
 }
@@ -15,8 +15,32 @@
     color: black;
 }
 
+.flex{
+    display: flex;
+    flex-direction: row;
+}
+
 @media (min-width: 600px) {
     .Auth {
-        width: 500px;
+        width: 400px;
     }
 } 
+
+@media(max-width:600px){
+    .flex{
+        display: flex;
+        flex-direction: column;
+    }
+    .Auth {
+        margin: 5px 45px;
+        width: fit-content;
+        text-align: center;
+        box-shadow: 0 2px 3px rgb(8, 8, 8);
+        border: 1px solid rgb(88, 124, 202);
+        /* padding: 20px 1px 1px 10px; */
+        box-sizing: border-box;
+        background-color: #6a8cd3;
+        border-radius: 1em;
+        /* color: #fff; */
+    }
+}

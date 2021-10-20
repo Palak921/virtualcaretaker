@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import classes from './Auth.module.css';
 import * as actions from './store/index';
 
+import doctor from './images/doctors.jpg'
+
 class Auth extends Component {
     state = {
         controls: {
@@ -134,20 +136,26 @@ class Auth extends Component {
         }
 
         return (
-            <div>
+            <div >
                 <div>
                     <h1 className={classes.content}>VIRTUAL CARETAKER</h1>
                 </div>
-            <div className={classes.Auth}>
-                {errormessage}
-                <form onSubmit={this.submitHandler}>
-                    {form}
-                    <Button variant="contained" btnType="Success">SUBMIT</Button>
-                </form>
-                <Button onClick={this.switchAuthModeHandler}btnType='Danger'>SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
+                <div className={classes.flex}>
+                    <div className={classes.Auth}>
+                        {errormessage}
+                        <form onSubmit={this.submitHandler}>
+                            {form}
+                            <Button variant="contained" btnType="Success">SUBMIT</Button>
+                        </form>
+                        <Button onClick={this.switchAuthModeHandler} btnType='Danger'>SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
+                    </div>
+                    <div>
+                        <img src={doctor} />
+                    </div>
+                </div>
+
             </div>
-            </div>
-            
+
         );
     }
 }
