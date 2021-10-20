@@ -1,66 +1,89 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import Button from '@material-ui/core/Button'
 import './bmi.css';
+import Aimlogo from '../images/AimLogo.gif';
+import Header from '../Header/Header';
 
-class BMICalculater extends Component{
-    state={
-       wval:'',
-       hval:'',
-       res:'',
-       bmi:0,
-       errorMessage:''
+class BMICalculater extends Component {
+    state = {
+        wval: '',
+        hval: '',
+        res: '',
+        bmi: 0,
+        errorMessage: ''
     }
-render(){
-    const weighthandler=(e)=>{
-     this.setState({wval:e.target.value},()=>{console.log(this.state.wval)})
-    }
+    render() {
+        const heighthandler = (e) => {
+            this.setState({ hval: e.target.value }, () => { console.log(this.state.hval) })
+        }
 
-    const heighthandler=(e)=>{
-     this.setState({hval:e.target.value},()=>{console.log(this.state.hval)})
-    }
-    const reshandler=(event)=>{
-        event.preventDefault();
-        if(this.state.hval=='' || this.state.wval==''){
-            this.setState({errorMessage:'Please make sure the values you entered are correct'})
+        const weighthandler = (e) => {
+            this.setState({ wval: e.target.value }, () => { console.log(this.state.wval) })
         }
-        else{
-        let bmi = (this.state.wval/ ((this.state.hval*this.state.hval)/ 10000)).toFixed(2);
-        this.setState({bmi})
-    }
-}
-    let answer=''
-    let result=''
-    if(this.state.bmi>0){
-        if (this.state.bmi < 18.6){
-            result='You are Underweight'
-        }
-  
-        else if (this.state.bmi >= 18.6 && this.state.bmi < 24.9) 
-          {
-            result='You are Healthy'
-          }
-  
-        else{
-            result='You are Overweight'
+        const reshandler = (event) => {
+            event.preventDefault();
+            if (this.state.hval == '' || this.state.wval == '') {
+                this.setState({ errorMessage: 'Please make sure the values you entered are correct' })
             }
-   answer=(<div id="result">{result} : <span>{this.state.bmi}</span></div>)
+            else {
+                let bmi = (this.state.wval / ((this.state.hval * this.state.hval) / 1000)).toFixed(2);
+                this.setState({ bmi: bmi })
+            }
+        }
+        let answer = ''
+        let result = ''
+        if (this.state.bmi > 0) {
+            if (this.state.bmi < 18.6) {
+                result = 'You are Underweight'
+            }
+
+            else if (this.state.bmi >= 18.6 && this.state.bmi < 24.9) {
+                result = 'You are Healthy'
+            }
+
+            else {
+                result = 'You are Overweight'
+            }
+            answer = (<div id="result">{result} : <span>{this.state.bmi}</span></div>)
+        }
+        return (
+            <div>
+                <Header />
+                <div class="container">
+
+                    <div class="content content1">
+                        Body mass index (BMI) is a value derived from the mass (weight) and height of a person.
+                        <br />
+                        <h2>What is BMI?</h2>
+                        BMI Categories: <br />
+                        Underweight : Less than 18.5 <br />
+                        Normal weight : 18.5–24.9 <br />
+                        Overweight : 25–29.9 <br />
+                        Obesity : BMI of 30 or greater <br />
+                    </div>
+                    <img src={Aimlogo} height="100px" />
+                    <div class="content2">
+                        <h1 class="heading">BMI Calculator</h1>
+                        <strong>Enter your height and weight using standard measures</strong><br />
+                        <p class="content">Height (in cm)
+                            <input class="ip" type="text" id="height" onChange={(e) => weighthandler(e)} value={this.state.wval}></input>
+                        </p>
+                        <p class="content">Weight (in kg)
+                            <input class="ip" type="text" id="weight" onChange={(e) => heighthandler(e)} value={this.state.hval}></input>
+                        </p>
+                        <br />
+                        {/* <button id="btn" onClick={(e)=>reshandler(e)}>Calculate</button> */}
+                        <div id="btn">
+                            <Button variant="contained" onClick={(e) => reshandler(e)}>Calculate</Button>
+                        </div>
+                        {answer}
+                        <div className='error'>{this.state.errorMessage}</div>
+                    </div>
+
+                </div>
+            </div>
+
+        )
     }
-    return(
-        <div class="container">
-        <h1 class="heading">BMI Calculator</h1>
-        <p class="content">Height (in cm)</p>
-        <input class="ip" type="text" id="height" onChange={(e)=>weighthandler(e)} value={this.state.wval}></input>
-        <p class="content">Weight (in kg)</p>
-        <input class="ip" type="text" id="weight" onChange={(e)=>heighthandler(e)} value={this.state.hval}></input>
-        <br/>
-        {/* <button id="btn" onClick={(e)=>reshandler(e)}>Calculate</button> */}
-        <div id="btn">
-        <Button  variant="contained" onCLick={(e) => reshandler(e)}>Calculator</Button>
-        </div>
-        {answer}
-       <div className='error'>{this.state.errorMessage}</div>
-    </div>
-    )
-}
 }
 export default BMICalculater

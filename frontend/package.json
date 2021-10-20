@@ -1,10 +1,11 @@
-{  
+{
   "name": "virtualcaretaker",
   "proxy": "http://localhost:5000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
+    "@mui/material": "^5.0.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -14,6 +15,8 @@
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

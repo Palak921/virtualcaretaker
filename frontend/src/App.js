@@ -21,12 +21,8 @@ function App() {
      <Route path="/" exact component={Auth}/>
      <Route path="/bmi" exact component={BMICalculater}/>
      <Route path="/cal" exact component={Caloriecounter}/>
-<<<<<<< HEAD:src/App.js
-     <Route path="/main" exact component={Mainpage}/>
-=======
      <Route path="/mainpage" exact component={Mainpage}/>
      <Route path="/homepage" exact component={Homepage}/>
->>>>>>> 28f6d49e042cfc238a0d05e9b2915a05295b4fc0:frontend/src/App.js
      </BrowserRouter>
       {/* <Mainpage></Mainpage> */}
       {/*<BMICalculater></BMICalculater>*/}
