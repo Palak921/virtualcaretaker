@@ -44,3 +44,14 @@
         /* color: #fff; */
     }
 }
+
+.Appheader {
+    /* background-color: #f1f4fa; */
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }

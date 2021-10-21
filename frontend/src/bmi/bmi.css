@@ -20,7 +20,8 @@
 }
 
 .content1{
-    margin: 4em 0em 0em 8em;
+    /* margin: 4em 0em 0em 8em; */
+    padding: 4em;
     width: 38%;
     text-align: left;
 }
@@ -38,7 +39,7 @@
 
 img{
     /* border: 1px solid black; */
-    margin-top: 2em;
+    margin: 2em;
     /* width: fit-content;     */
 }
 
@@ -57,6 +58,7 @@ img{
     .content1{
         display: none;
         margin: 0em;
+        padding: 0em;
         /* width: 38%; */
     }
     .content2{

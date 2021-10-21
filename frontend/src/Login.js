@@ -136,7 +136,7 @@ class Auth extends Component {
         }
 
         return (
-            <div >
+            <div className={classes.Appheader}>
                 <div>
                     <h1 className={classes.content}>VIRTUAL CARETAKER</h1>
                 </div>
