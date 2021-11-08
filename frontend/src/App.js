@@ -10,6 +10,7 @@ import Caloriecounter from './bmi/Caloriecounter'
 import './App.css';
 import Mainpage from './Mainpage';
 import Homepage  from './homepage';
+import Profile from './Profile/Profile'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
      <Route path="/cal" exact component={Caloriecounter}/>
      <Route path="/mainpage" exact component={Mainpage}/>
      <Route path="/homepage" exact component={Homepage}/>
+     <Route path="/profile" exact component={Profile}/>
      </BrowserRouter>
       {/* <Mainpage></Mainpage> */}
       {/*<BMICalculater></BMICalculater>*/}

@@ -2,4 +2,17 @@
     text-align: right;
     width: 100%;
     color: white !important;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+p{
+    margin: 0em;
+}
+
+.profile{
+    color: white;
+    margin: 0em;
+    /* margin-bottom: 2em; */
+    /* padding-bottom: 10px; */
 }

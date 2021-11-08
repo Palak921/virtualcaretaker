@@ -1,0 +1,66 @@
+.container{
+    color: black;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.row1{
+    width: 40%;
+    background-color: rgb(211, 211, 233);
+    display: flex;
+    flex-direction: column;
+}
+
+.row2{
+   width: 50%;
+}
+
+.picture{
+    border-radius: 50%;
+    
+}
+
+.information{
+    border: 2px solid black;
+    margin: 40px;
+    border-radius: 10px;
+}
+
+.info{
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.label{
+    width: 25%;
+}
+input{
+    width: 50%;
+}
+
+@media (max-width : 750px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .row1{
+        width: 100vw;
+        /* height: 100vh; */
+    }
+    .picture{
+        width: 100px;
+        height: 100px;
+    }
+    .information{
+        /* display: none; */
+    }
+    img{
+        display: inline-flexbox;
+    }
+    input{
+        margin-left:10%;
+    }
+}

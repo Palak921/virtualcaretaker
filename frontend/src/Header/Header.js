@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Icon } from 'semantic-ui-react'
 
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -12,8 +13,11 @@ const Navbar = () => {
       <Toolbar>
         <div class="Nav">
           {/* <p>Navbar</p> */}
-          {/* <p>Navbar</p> */}
-          <p class="icons"><i class="home icon"></i></p>
+          <i class="home icon"></i>
+          <p>   </p>
+          <Link to="/profile" className="profile">Profile</Link>
+          <p>   </p>
+          <Link to="/home" className="profile">Home</Link>
         </div>
       </Toolbar>
     </AppBar>

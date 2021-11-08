@@ -34,6 +34,7 @@ class Homepage extends Component {
                                 <Button as="div" color="blue">Mainpage</Button>
                             </Link>
                         </div>
+                        
                     </div>
                 </div>
             </div>
