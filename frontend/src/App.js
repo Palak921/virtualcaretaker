@@ -12,7 +12,6 @@ import Mainpage from './Mainpage';
 import Homepage  from './homepage';
 import Profile from './Profile/Profile'
 
-
 function App() {
   const store = createStore(reducer)
   return (

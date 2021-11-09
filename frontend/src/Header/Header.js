@@ -3,6 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
 import { Icon } from 'semantic-ui-react'
+import Notification from '../Notification';
 
 import './Header.css';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,7 @@ const Navbar = () => {
           <Link to="/profile" className="profile">Profile</Link>
           <p>   </p>
           <Link to="/home" className="profile">Home</Link>
+          <Notification/>
         </div>
       </Toolbar>
     </AppBar>
