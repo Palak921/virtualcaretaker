@@ -17,7 +17,9 @@ class Mainpage extends Component {
       bloodSugarType: '1',
       userlatitude:'',
       userlongitude:'',
-      hosplist:[]
+      hosplist:[],
+      bpabnormality:false,
+      sugarabnormality:false
    }
    render() {
 
@@ -68,6 +70,9 @@ class Mainpage extends Component {
             <input type='checkbox' onChange={(e) => pregHandler(e)}></input></div>)
       }
 
+
+      let sugarans=false
+
       const diagnoseBPHandler = (e) => {
          e.preventDefault();
          if (this.state.sbp === 0 && this.state.dbp === 0) {
@@ -89,22 +94,23 @@ class Mainpage extends Component {
                   this.setState({ bpresult: 'You are perfectly Healthy' })
                }
                else if (sys >= 120 && sys <= 129 && dia < 80) {
-                  this.setState({ bpresult: 'Your blood Pressure is slighlty Elevated and needs care' })
+                  this.setState({ bpresult: 'Your blood Pressure is slighlty Elevated and needs care' ,bpabnormality:true})
                }
                else if (sys >= 130 && sys <= 139 || dia >= 80 && dia <= 89) {
-                  this.setState({ bpresult: 'Your blood Pressure is high.You are at Stage 1 Hypertension' })
+                  this.setState({ bpresult: 'Your blood Pressure is high.You are at Stage 1 Hypertension',bpabnormality:true})
                }
                else if (sys >= 140 || dia >= 90) {
-                  this.setState({ bpresult: 'Your blood Pressure is high.You are at Stage 2 Hypertension' })
+                  this.setState({ bpresult: 'Your blood Pressure is high.You are at Stage 2 Hypertension',bpabnormality:true })
                }
                else {
-                  this.setState({ bpresult: 'Your have Hypertensive crisis and requires immediate medical care' })
+                  this.setState({ bpresult: 'Your have Hypertensive crisis and requires immediate medical care',bpabnormality:true })
                }
             }
          }
       }
       let report = ''
       const diagnoseSugarHandler = (e) => {
+         e.preventDefault()
          console.log(this.state.preg, this.state.bloodSugarType, this.state.age, this.state.sugar, this.state.gender == 'not selected')
          if (this.state.age == 0 || this.state.gender == 'not selected' || this.state.sugar == 0) {
 
@@ -123,46 +129,57 @@ class Mainpage extends Component {
                if (this.state.bloodSugarType === '1') {
                   if (this.state.sugar > 70 && this.state.sugar < 89) {
                      report = "Your sugar levels are normal"
+                     sugarans=false
                   }
                   else if (this.state.sugar <= 70) {
                      report = 'You are hypoglycemic'
+                     sugarans=true
                   }
                   else if (this.state.sugar >= 89) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
 
                if (this.state.bloodSugarType === '2') {
                   if (this.state.sugar === 89) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar < 89) {
                      report = 'You are hypoglycemic'
+                     sugarans=true
                   }
                   else if (this.state.sugar > 89) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
 
                if (this.state.bloodSugarType === '3') {
                   if (this.state.sugar < 120) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
 
                   else if (this.state.sugar >= 120) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
 
                if (this.state.bloodSugarType === '4') {
                   if (this.state.sugar >= 100 && this.state.sugar <= 140) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar < 100) {
                      report = 'You are hypoglycemic'
+                     sugarans=true
                   }
                   else if (this.state.sugar > 140) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
             }
@@ -170,52 +187,57 @@ class Mainpage extends Component {
                if (this.state.bloodSugarType === '1') {
                   if (this.state.sugar > 80 && this.state.sugar <= 180) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar <= 80) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '2') {
                   if (this.state.sugar >= 100 && this.state.sugar <= 180) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 100) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '3') {
                   if (this.state.sugar >= 180) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 180) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '4') {
                   if (this.state.sugar >= 110 && this.state.sugar <= 200) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar < 110) {
                      report = 'You are hypoglycemic'
+                     sugarans=true
                   }
                   else if (this.state.sugar > 200) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
 
@@ -225,49 +247,54 @@ class Mainpage extends Component {
                if (this.state.bloodSugarType === '1') {
                   if (this.state.sugar > 80 && this.state.sugar <= 180) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar <= 80) {
                      report = 'You are hypoglycemic'
+                     sugarans=true
                   }
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
 
                if (this.state.bloodSugarType === '2') {
                   if (this.state.sugar >= 90 && this.state.sugar <= 180) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar < 90) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '3') {
                   if (this.state.sugar <= 140) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar > 140) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '4') {
                   if (this.state.sugar >= 100 && this.state.sugar <= 180) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 100) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
+                     sugarans=true
                   }
                }
             }
@@ -279,53 +306,54 @@ class Mainpage extends Component {
 
                   if (this.state.sugar > 70 && this.state.sugar <= 150) {
                      report = 'Your sugar levels are normal'
+                     sugarans=false
                   }
                   else if (this.state.sugar <= 70) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 150) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '2') {
                   if (this.state.sugar >= 90 && this.state.sugar <= 130) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 90) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 130) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '3') {
                   if (this.state.sugar >= 140) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
 
                   else if (this.state.sugar > 140) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '4') {
                   if (this.state.sugar >= 90 && this.state.sugar <= 150) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 90) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 150) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
 
@@ -337,61 +365,62 @@ class Mainpage extends Component {
                   if (this.state.sugar >= 70 && this.state.sugar <= 110) {
 
                      report = 'Your sugar levels are normal'
-                     console.log(report)
+                     sugarans=false
 
                   }
                   else if (this.state.sugar < 70) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 110) {
                      report = 'You are hyperglycemic'
-                     console.log(report)
+                     sugarans=true
+                     
                   }
                }
                if (this.state.bloodSugarType === '2') {
                   if (this.state.sugar >= 70 && this.state.sugar <= 130) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 70) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 130) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '3') {
                   if (this.state.sugar < 180) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
 
                   else if (this.state.sugar > 180) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
                if (this.state.bloodSugarType === '4') {
                   if (this.state.sugar >= 100 && this.state.sugar <= 140) {
                      report = 'Your sugar levels are normal'
-
+                     sugarans=false
                   }
                   else if (this.state.sugar < 100) {
                      report = 'You are hypoglycemic'
-
+                     sugarans=true
                   }
                   else if (this.state.sugar > 140) {
                      report = 'You are hyperglycemic'
-
+                     sugarans=true
                   }
                }
 
             }
          }
-         this.setState({ sugarresult: report }, () => console.log(this.state.sugarresult))
+         this.setState({ sugarresult: report,sugarabnormality:sugarans }, () => console.log(this.state.sugarresult))
       }
       const distance=(lat1, lon1, lat2, lon2, unit)=> {
          var radlat1 = Math.PI * lat1/180
@@ -409,17 +438,22 @@ class Mainpage extends Component {
          return dist*1609.344
      }
 
-     
+     let hospitalbutton=null
      let hospitallist=null
+     if(this.state.bpabnormality || this.state.sugarabnormality){
+     hospitalbutton=<Button color="blue" className="btn" onClick={(e)=>hospitalhandler(e)}>Hospitals near me</Button>
+     }
+
      let hosp=[]
      const hospitalhandler=(e)=>{
         e.preventDefault()
         navigator.geolocation.getCurrentPosition(position=>{
-           this.setState({userlatitude:position.coords.latitude,userlongitude:position.coords.longitude},()=>{ 
+           this.setState({userlatitude:position.coords.latitude,userlongitude:position.coords.longitude},
+            ()=>{ console.log(this.state.userlatitude,this.state.userlongitude)
             for (var i = 0; i < hospitaldata.length; i++) {
                      let x=distance(this.state.userlatitude,this.state.userlongitude,hospitaldata[i].lat,hospitaldata[i].long)
                      if(x<=5000)
-                     {
+                     {  console.log(x)
                         hosp.push(hospitaldata[i])
                      }
                }
@@ -474,7 +508,7 @@ class Mainpage extends Component {
                {/* <button >Diagnose</button> */}
                <p>{this.state.bpresult}</p>
                <p>{this.state.sugarresult}</p>
-               <Button color="blue" className="btn" onClick={(e)=>hospitalhandler(e)}>Hospitals near me</Button>
+               {hospitalbutton}
                {hospitallist}
             </div>
          </div>
