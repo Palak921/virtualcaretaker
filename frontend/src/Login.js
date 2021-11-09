@@ -90,12 +90,14 @@ class Auth extends Component {
     }
 
     submitHandler = (event) => {
+        console.log("submit")
         event.preventDefault();
         //  this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp);
         this.props.history.push('/homepage')
     }
 
     switchAuthModeHandler = () => {
+        console.log("hi");
         this.setState(prevState => {
             return {
                 isSignUp: !prevState.isSignUp
@@ -134,7 +136,7 @@ class Auth extends Component {
                 <p>{this.props.error.message}</p>
             )
         }
-
+        console.log(this.state.isSignUp)
         return (
             <div className={classes.Appheader}>
                 <div>
@@ -145,9 +147,10 @@ class Auth extends Component {
                         {errormessage}
                         <form onSubmit={this.submitHandler}>
                             {form}
-                            <Button variant="contained" btnType="Success">SUBMIT</Button>
+                            <Button variant="contained" btnType="Success" onClick={this.submitHandler}>SUBMIT</Button>
                         </form>
-                        <Button onClick={this.switchAuthModeHandler} btnType='Danger'>SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
+                        {/* <button onClick={this.switchAuthModeHandler}>hi</button> */}
+                        <Button onClick={this.switchAuthModeHandler} >SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
                     </div>
                     <div>
                         <img src={doctor} />

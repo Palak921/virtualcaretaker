@@ -1,27 +1,43 @@
 .co{
-    width: 50%;
+    width: 60%;
     margin: 1em;
-    margin-left:25% ;
+    margin-left:20% ;
     display: flex;
     flex-direction: column;
     text-align: center;
     /* align-items: center; */
-    /* justify-content: center; */
+    justify-content: center;
     color: black;
     background-color: rgb(233, 232, 232);
     border-radius: 1.5em;
     border: 2px solid black
 }
 
-p, .radio{
-    margin: 0.5em;
+h1{
+    color: #000;
+}
+
+p{
+    margin :1em;
+}
+
+ .radio{
+    margin: 0.5em 0.5em 0.5em 2.5em;
+    width: fit-content;
+}
+
+.gender{
+    width: 80%;
+    text-align: left;
+    margin: 0em;
+    justify-content: center;
 }
 
 #age{
     height: 1em;
     width: 1.4em;
     border-radius:0.2em ;
-    margin-top: 0.8em;
+    /* margin-top: 0.8em; */
     margin-left: 0.8em;
 }
 
@@ -32,14 +48,17 @@ p, .radio{
 
 .top1{
     display: flex;
-    flex-direction: row;
+    text-align: left;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 8%;
 }
 
 .top{
-    /* width: 20%; */
-    /* padding: 1em; */
-    /* margin: 1em; */
+    width: 40%;
+    margin: 0em;
 }
+
 
 #bp{
   width: 50%;
@@ -51,4 +70,52 @@ p, .radio{
     width: 30%;
     margin: 0.8em !important;
     margin-left: 35% !important;
+}
+
+.prega{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+select{
+    justify-content: center;
+    margin-right: 4em;
+}
+
+
+@media (max-width : 800px) {
+    /* .main{
+        width: 100vw;
+    } */
+    .co{
+        width: 90%;
+        margin: 1em;
+        margin-left:5% ;
+        display: flex;
+        flex-direction: column;
+        /* text-align: center; */
+        /* align-items: center; */
+        justify-content: center;
+        color: black;
+        background-color: rgb(233, 232, 232);
+        border-radius: 1.5em;
+        border: 2px solid black
+    }
+
+    .radio{
+        margin: 0.5em 0.5em 0.5em 0.5em;
+        width: fit-content;
+    }
+
+    /* .top1{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .gender{
+        width: fit-content;
+        display: flex;
+        flex-direction: row;
+    } */
 }

@@ -5,7 +5,8 @@ const initialState = {
     token: null,
     userId: null,
     error: null,
-    loading: false
+    loading: false,
+    not : 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +32,12 @@ const reducer = (state = initialState, action) => {
             return updateObject(state, {
                 token: null,
                 userId: null
+            })
+        }
+        case 'update_not' :{
+            console.log("hello")
+            return updateObject(state,{
+                not : 1
             })
         }
         default: return state
