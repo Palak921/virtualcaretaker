@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import './Mainpage.css';
 import { Button } from 'semantic-ui-react';
 import Header from './Header/Header';
+import hospitaldata from './data/hospitals'
 
 class Mainpage extends Component {
    state = {
@@ -13,7 +14,10 @@ class Mainpage extends Component {
       bpresult: '',
       sugarresult: '',
       preg: false,
-      bloodSugarType: '1'
+      bloodSugarType: '1',
+      userlatitude:'',
+      userlongitude:'',
+      hosplist:[]
    }
    render() {
 
@@ -389,7 +393,46 @@ class Mainpage extends Component {
          }
          this.setState({ sugarresult: report }, () => console.log(this.state.sugarresult))
       }
+      const distance=(lat1, lon1, lat2, lon2, unit)=> {
+         var radlat1 = Math.PI * lat1/180
+         var radlat2 = Math.PI * lat2/180
+         var theta = lon1-lon2
+         var radtheta = Math.PI * theta/180
+         var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+         if (dist > 1) {
+             dist = 1;
+         }
+         dist = Math.acos(dist)
+         dist = dist * 180/Math.PI
+         dist = dist * 60 * 1.1515
+         if (unit=="K") { dist = dist * 1.609344 }
+         return dist*1609.344
+     }
 
+     
+     let hospitallist=null
+     let hosp=[]
+     const hospitalhandler=(e)=>{
+        e.preventDefault()
+        navigator.geolocation.getCurrentPosition(position=>{
+           this.setState({userlatitude:position.coords.latitude,userlongitude:position.coords.longitude},()=>{ 
+            for (var i = 0; i < hospitaldata.length; i++) {
+                     let x=distance(this.state.userlatitude,this.state.userlongitude,hospitaldata[i].lat,hospitaldata[i].long)
+                     if(x<=5000)
+                     {
+                        hosp.push(hospitaldata[i])
+                     }
+               }
+              this.setState({hosplist:hosp},()=>{
+                 console.log(this.state.hosplist)
+              })
+           })
+        }) 
+     }
+
+     if(this.state.hosplist!=[]){
+        hospitallist=this.state.hosplist.map((i,ind)=>{return(<div><li key={ind}>{i.name}</li></div>)})
+     }
 
       return (
          <div className="main">
@@ -427,15 +470,15 @@ class Mainpage extends Component {
                   <option value='3'>Blood Sugar Levels After 1 to 2 Hours of Eating</option>
                   <option value='4'>Blood Sugar Levels at Bedtime</option>
                </select>
-               <Button  color="blue" className="btn" onClick={(e) => diagnoseSugarHandler(e)}>Daignose</Button>
+               <Button  color="blue" className="btn" onClick={(e) => diagnoseSugarHandler(e)}>Diagnose</Button>
                {/* <button >Diagnose</button> */}
                <p>{this.state.bpresult}</p>
                <p>{this.state.sugarresult}</p>
+               <Button color="blue" className="btn" onClick={(e)=>hospitalhandler(e)}>Hospitals near me</Button>
+               {hospitallist}
             </div>
          </div>
-
       )
    }
 }
-
 export default Mainpage

@@ -39,6 +39,27 @@ const profile=new mongoose.Schema({
       type:Number
     }
 })
-
+/*const hospitals=new mongoose.Schema({
+  latitude:{
+    type:number
+  },
+  longitude:{
+  type:number
+  },
+  hosp_name:{
+  type:string
+  },
+  address:{
+    type:string
+  },
+  contact_No:{
+  type:string
+  }
+})
+*/
 const profile_model=new mongoose.model('profile_model',profile)
-module.exports=profile_model
+const hospital_model=new mongoose.model('hospitals',hospitals)
+module.exports={
+  profile_model,
+  hospital_model
+}

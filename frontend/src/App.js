@@ -19,7 +19,7 @@ function App() {
     <Provider store={store}>
     <div className="App App-header">
      <BrowserRouter>
-     <Route path="/" exact component={Auth}/>
+     <Route path="/" exact component={Mainpage}/>
      <Route path="/bmi" exact component={BMICalculater}/>
      <Route path="/cal" exact component={Caloriecounter}/>
      <Route path="/mainpage" exact component={Mainpage}/>
