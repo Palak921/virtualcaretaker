@@ -95,7 +95,6 @@ class Auth extends Component {
     render() {
 
         const switchAuthModeHandler = () => {
-           
             this.setState(prevState => {
                 return {
                     isSignUp: !prevState.isSignUp
@@ -104,7 +103,8 @@ class Auth extends Component {
         }
 
         const submitHandler = (event) => {
-           // event.preventDefault();
+            // event.preventDefault();
+            console.log(this.state.controls.email.value,this.state.controls.password.value)
             this.props.onAuth(this.state.controls.email.value,this.state.controls.password.value)
             this.props.history.push('/homepage')
         }

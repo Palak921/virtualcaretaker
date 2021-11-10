@@ -14,6 +14,7 @@ export const profile_update = (age,gender,systolic,diastolic,sugar,bpresult,suga
 };
 
 export const cred_update=(username,password)=>{
+    console.log(username,password)
     return{
         type:actionTypes.CRED_UPDATE,
         username:username,

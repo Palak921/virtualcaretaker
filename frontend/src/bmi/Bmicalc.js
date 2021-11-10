@@ -16,6 +16,7 @@ class BMICalculater extends Component {
         errorMessage: ''
     }
     render() {
+        
         const heighthandler = (e) => {
             this.setState({ hval: e.target.value }, () => { console.log(this.state.hval) })
         }
@@ -37,10 +38,10 @@ class BMICalculater extends Component {
                        height:this.state.hval,
                        weight:this.state.wval,
                        bmi:this.state.bmi
-                  }).then(response=>{console.log(response)}).
+                  }) }).then(response=>{console.log(response)}).
                   catch(error=>{console.log(error)})
                 })
-                })
+            
             }
         }
         let answer = ''

@@ -14,7 +14,7 @@ const profilestate={
 }
 
 const ProfileReducer=(state=profilestate,action)=>{
-    switch(action){
+    switch(action.type){
         case actionTypes.PROFILE_UPDATE:{
             return updateObject(state,{
                 age:action.age,
@@ -27,7 +27,6 @@ const ProfileReducer=(state=profilestate,action)=>{
             })
         }
         case actionTypes.CRED_UPDATE:{
-            console.log('sdfghj')
             return updateObject(state,{
                 username:action.username,
                 password:action.password
