@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import './Mainpage.css';
 import { Button } from 'semantic-ui-react';
 import Header from './Header/Header';
-import hospitaldata from './data/hospitals'
+import hospitaldata from './data/hospitals';
+import qs from 'qs'
+import { connect } from "react-redux";
+import axios from "axios";
 
 class Mainpage extends Component {
    state = {
@@ -19,8 +22,10 @@ class Mainpage extends Component {
       userlongitude:'',
       hosplist:[],
       bpabnormality:false,
-      sugarabnormality:false
+      sugarabnormality:false,
+      diet_Reccomendations:[]
    }
+   
    render() {
 
       const agehandler = (e) => {
@@ -38,7 +43,7 @@ class Mainpage extends Component {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ sbp: parseInt(e.target.value) }, () => { console.log(this.state.sbp) })
+         this.setState({ sbp: parseInt(e.target.value) })
       }
 
       const dbpHandler = (e) => {
@@ -70,7 +75,7 @@ class Mainpage extends Component {
             <input type='checkbox' onChange={(e) => pregHandler(e)}></input></div>)
       }
 
-
+      let bpans=false
       let sugarans=false
 
       const diagnoseBPHandler = (e) => {
@@ -86,45 +91,66 @@ class Mainpage extends Component {
             this.setState({ bpresult: 'Please enter your systolic Blood Pressure readings' })
          }
          else {
-
+            let bpreport
             const sys = this.state.sbp;
             const dia = this.state.dbp;
             if (sys != 0 && dia != 0) {
                if (sys < 120 && dia < 80) {
-                  this.setState({ bpresult: 'You are perfectly Healthy' })
+                  bpreport='You are perfectly Healthy'
+                  bpans=false
                }
                else if (sys >= 120 && sys <= 129 && dia < 80) {
-                  this.setState({ bpresult: 'Your blood Pressure is slighlty Elevated and needs care' ,bpabnormality:true})
+                  bpreport='Your blood Pressure is slighlty Elevated and needs care'
+                  bpans=true
                }
                else if (sys >= 130 && sys <= 139 || dia >= 80 && dia <= 89) {
-                  this.setState({ bpresult: 'Your blood Pressure is high.You are at Stage 1 Hypertension',bpabnormality:true})
+                  bpreport='Your blood Pressure is high.You are at Stage 1 Hypertension'
+                  bpans=true
                }
                else if (sys >= 140 || dia >= 90) {
-                  this.setState({ bpresult: 'Your blood Pressure is high.You are at Stage 2 Hypertension',bpabnormality:true })
+                  bpreport= 'Your blood Pressure is high.You are at Stage 2 Hypertension'
+                  bpans=true
                }
                else {
-                  this.setState({ bpresult: 'Your have Hypertensive crisis and requires immediate medical care',bpabnormality:true })
+                  bpreport='Your have Hypertensive crisis and requires immediate medical care'
+                  bpans=true
                }
             }
+            this.setState({bpresult:bpreport,bpabnormality:bpans},()=>{
+               axios({method:'post',
+                     url:'http://localhost:5000/api/bpresult',
+                    data:qs.stringify({
+                        username:this.props.username,
+                        diastolic:this.state.dbp,
+                        systolic:this.state.sbp,
+                        bpresult:this.state.bpresult
+                    })
+                  }).then(response=>{console.log(response)}).
+                  catch(error=>{console.log(error)})
+            })
          }
       }
-      let report = ''
+      
       const diagnoseSugarHandler = (e) => {
          e.preventDefault()
+         let error=''
          console.log(this.state.preg, this.state.bloodSugarType, this.state.age, this.state.sugar, this.state.gender == 'not selected')
          if (this.state.age == 0 || this.state.gender == 'not selected' || this.state.sugar == 0) {
 
             if (this.state.age == 0) {
-               report = "Please enter your age. "
+               error = "Please enter your age. "
             }
             if (this.state.gender == 'not selected') {
-               report += "Please select appropriate gender option. "
+               error += "Please select appropriate gender option. "
             }
             if (this.state.sugar == 0) {
-               report += "Please add blood glucose level readings. "
+               error += "Please add blood glucose level readings. "
             }
+            this.setState({sugarresult:error})
          }
          else {
+      
+            let report=''
             if (this.state.preg && this.state.age >= 13) {
                if (this.state.bloodSugarType === '1') {
                   if (this.state.sugar > 70 && this.state.sugar < 89) {
@@ -298,9 +324,6 @@ class Mainpage extends Component {
                   }
                }
             }
-
-
-
             else if (this.state.age >= 13 && this.state.age <= 19) {
                if (this.state.bloodSugarType === '1') {
 
@@ -417,11 +440,43 @@ class Mainpage extends Component {
                      sugarans=true
                   }
                }
-
             }
+            this.setState({ sugarresult: report,sugarabnormality:sugarans }, () => {
+               console.log(this.state.sugarresult)
+              axios({method:'post',
+                    url:'http://localhost:5000/api/bloodsugar',
+                    data:qs.stringify({
+                              username:this.props.username,
+                              bloodsugar:this.state.sugar,
+                              sugarresult:this.state.sugarresult,
+                              age:this.state.age,
+                              gender:this.state.gender,
+                           }).then(response=>{console.log(response)}).
+                           catch(error=>{console.log(error)})
+               })
+            }
+            )
          }
-         this.setState({ sugarresult: report,sugarabnormality:sugarans }, () => console.log(this.state.sugarresult))
       }
+      let dietlist=[]
+      const dietreccomendations=()=>{
+         if(this.state.sugarabnormality || this.state.bpabnormality==false){
+            dietlist.push('normal diet')
+         }
+         if(this.state.sugarabnormality){
+            dietlist.push('sugar diet')
+         }
+         if(this.state.bpabnormality){
+            dietlist.push('bp diet')
+         }
+         this.setState({diet_Reccomendations:dietlist})
+      }
+
+      let dietReccomendations=null
+      dietReccomendations=this.state.diet_Reccomendations.map((i,ind)=>{return(
+                <p key={ind}>{i}</p>
+      )})
+
       const distance=(lat1, lon1, lat2, lon2, unit)=> {
          var radlat1 = Math.PI * lat1/180
          var radlat2 = Math.PI * lat2/180
@@ -467,7 +522,7 @@ class Mainpage extends Component {
      if(this.state.hosplist!=[]){
         hospitallist=this.state.hosplist.map((i,ind)=>{return(<div><li key={ind}>{i.name}</li></div>)})
      }
-
+     
       return (
          <div className="main">
             <div>
@@ -508,11 +563,19 @@ class Mainpage extends Component {
                {/* <button >Diagnose</button> */}
                <p>{this.state.bpresult}</p>
                <p>{this.state.sugarresult}</p>
+               <button onClick={()=>dietreccomendations()}>Diet Recommedations</button>
                {hospitalbutton}
+               {dietReccomendations}
                {hospitallist}
             </div>
          </div>
       )
    }
 }
-export default Mainpage
+const mapStateToProps=state=>{
+   console.log(state)
+    return{
+   username:state.username
+    }
+}
+export default connect(mapStateToProps)(Mainpage)

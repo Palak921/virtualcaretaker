@@ -2,11 +2,9 @@ const mongoose=require('mongoose')
 const profile=new mongoose.Schema({
     username:{
         type:String,
-        required:true
     },
     password:{
-        type:String,
-        required:true
+        type:String
     },
     age:{
        type:Number
@@ -29,37 +27,20 @@ const profile=new mongoose.Schema({
     diastolic:{
        type:Number
     },
+    bloodsugar:{
+       type:Number
+    },
     gender:{
       type:String
     },
-    preg:{
-      type:Boolean
+    bpresult:{
+      type:String
     },
-    sugar:{
-      type:Number
+    sugarresult:{
+      type:String
     }
 })
-/*const hospitals=new mongoose.Schema({
-  latitude:{
-    type:number
-  },
-  longitude:{
-  type:number
-  },
-  hosp_name:{
-  type:string
-  },
-  address:{
-    type:string
-  },
-  contact_No:{
-  type:string
-  }
-})
-*/
+
 const profile_model=new mongoose.model('profile_model',profile)
-const hospital_model=new mongoose.model('hospitals',hospitals)
-module.exports={
-  profile_model,
-  hospital_model
-}
+
+module.exports=profile_model

@@ -1,16 +1,23 @@
-const profile=require('./models.js')
+
 const express=require('express')
 const router=express.Router()
-
+const profile_model=require('./models.js')
+router.get('/hi',(req,res)=>{
+    console.log('fghj')
+    res.send('ghj')
+})
 router.post('/signup',async(req,res)=>{
-    const {username,password}=req.body()
+    console.log('asdfgh')
+    const {username,password}=req.body
+    console.log(req.body)
     try{
-    const olduser=await profile.findOne({username})
+    const olduser=await profile_model.findOne({username})
+    console.log(olduser)
     if(olduser){
         res.send('Username already Exists')
     }
     else{
-    const newuser=await profile({username,password})
+    const newuser=new profile_model({username,password})
     newuser.save((err)=>{
         if(err){
         res.status(404).send(err)
@@ -22,15 +29,18 @@ router.post('/signup',async(req,res)=>{
 }
     }
     catch(err){
+        console.log(err)
         res.status(400).send(err)
     }
 })
 
-router.post('/signin',(req,res)=>{
-    const {username,password}=req.body()
+router.post('/signin',async(req,res)=>{
+    const {username,password}=req.body
+    console.log(req.body)
     try{
-    const prevuser=await profile.findOne({username,password})
-    if(prevuser){
+    const prevuser=await profile_model.findOne({username,password})
+    
+    if(prevuser!=null){
         res.status(200).send('signed in')
     }
     else{
@@ -38,14 +48,16 @@ router.post('/signin',(req,res)=>{
     }
 }
 catch(err){
+    console.log(err)
     res.status(400).send(err)
 }
 })
 
-router.post('/add_hw',(req,res)=>{
-    const {height,weight,username}=req.body()
+router.post('/bpresult',async(req,res)=>{
+    console.log(req.body)
+    const {username,diastolic,systolic,bpresult}=req.body
     try{
-    const adddetails=await profile.findOneAndUpdate({username},{height,weight},{new:true,useFindAndModify:false})
+    const adddetails=await profile_model.findOneAndUpdate({username},{diastolic,systolic,bpresult},{new:true,useFindAndModify:false})
     if(adddetails){
         res.status(200).send(adddetails)
     }
@@ -58,10 +70,10 @@ router.post('/add_hw',(req,res)=>{
     }
 })
 
-router.post('/add_a_g_p_s',(req,res)=>{
-    const {age,gender,preg,sugar,username}=req.body()
+router.post('/sugarresult',async(req,res)=>{
+    const {age,gender,bloodsugar,sugarresult,username}=req.body
     try{  
-       const adddetails=await profile.findOneAndUpdate({username},{age,gender,preg,sugar},{new:true,useFindAndModify:false})
+       const adddetails=await profile_model.findOneAndUpdate({username},{age,gender,bloodsugar,sugarresult},{new:true,useFindAndModify:false})
        if(adddetails){
         res.status(200).send(adddetails)
     }
@@ -75,10 +87,10 @@ router.post('/add_a_g_p_s',(req,res)=>{
     }
 })
 
-router.post('/add_a_g_s_d',(req,res)=>{
-    const {username,age,gender,systolic,diastolic}=req.body()
+router.post('/bmi',async(req,res)=>{
+    const {username,height,weight,bmi}=req.body
     try{  
-        const adddetails=await profile.findOneAndUpdate({username},{age,gender,systolic,diastolic},{new:true,useFindAndModify:false})
+        const adddetails=await profile_model.findOneAndUpdate({username},{height,weight,bmi},{new:true,useFindAndModify:false})
         if(adddetails){
          res.status(200).send(adddetails)
      }
@@ -92,10 +104,10 @@ router.post('/add_a_g_s_d',(req,res)=>{
      }
 })
 
-router.post('/getprofile',(req,res)=>{
-    const {}=req.body()
+router.post('/getprofile',async(req,res)=>{
+    const {username}=req.body
     try{
-        const getdetails=await profile.findOne({username})
+        const getdetails=await profile_model.findOne({username})
         if(getdetails){
             res.status(200).send(getdetails)
         }

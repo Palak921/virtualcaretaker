@@ -1,5 +1,5 @@
-import * as actionTypes from './store/actionTypes';
-import { updateObject } from './store/utility';
+import * as actionTypes from '../actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
     token: null,
@@ -8,7 +8,7 @@ const initialState = {
     loading: false
 }
 
-const reducer = (state = initialState, action) => {
+const Authreducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_START: {
             return updateObject(state, { error: null, loading: true })
@@ -37,4 +37,4 @@ const reducer = (state = initialState, action) => {
     }
 }
 
-export default reducer;
+export default Authreducer;

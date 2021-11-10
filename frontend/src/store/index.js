@@ -1,13 +1,7 @@
-
-// export { } from './order'
-
-// export {
-//     purchaseBurger,
-//     purchaseInit,
-//     fetchOrder,
-
-// } from './order';
-
+export{
+    profile_update,
+    cred_update
+}from './Actions/ProfileActions'
 export {
     auth
-} from './auth';
+} from './Actions/auth';

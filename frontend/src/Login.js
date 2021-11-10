@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import qs from 'qs'
 // import Spinner from '../../components/UI/Spinner/Spinner';
 import Spinner from '@material-ui/core/CircularProgress'
 import Input from './Input';
@@ -9,9 +9,13 @@ import Button from '@material-ui/core/Button';
 import classes from './Auth.module.css';
 import * as actions from './store/index';
 import doctor from './images/doctors.jpg'
+import Axios from 'axios';
 
 class Auth extends Component {
     state = {
+        error:false,
+        isSignUp:true,
+        submit:false,
         controls: {
             email: {
                 elementType: 'input',
@@ -41,8 +45,7 @@ class Auth extends Component {
                 valid: false,
                 touched: false
             }
-        },
-        isSignUp: true
+        }
     }
 
     checkValidity(value, rules) {
@@ -88,22 +91,66 @@ class Auth extends Component {
         };
         this.setState({ controls: updatedControls });
     }
-
-    submitHandler = (event) => {
-        event.preventDefault();
-        //  this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp);
-        this.props.history.push('/homepage')
-    }
-
-    switchAuthModeHandler = () => {
-        this.setState(prevState => {
-            return {
-                isSignUp: !prevState.isSignUp
-            }
-        })
-    }
-
+ 
     render() {
+
+        const switchAuthModeHandler = () => {
+           
+            this.setState(prevState => {
+                return {
+                    isSignUp: !prevState.isSignUp
+                }
+            },()=>{console.log(this.state.isSignUp)})
+        }
+
+        const submitHandler = (event) => {
+           // event.preventDefault();
+            this.props.onAuth(this.state.controls.email.value,this.state.controls.password.value)
+            this.props.history.push('/homepage')
+        }
+    
+        
+        const signInHandler = (event) => {
+          
+            Axios({
+                method: 'post', url: 'http://localhost:5000/api/signin', data: qs.stringify({
+                    username: this.state.controls.email.value,
+                    password: this.state.controls.password.value
+                })
+            }).then(response => {
+                if (response.data === 'Incorrect login credentials,please try again or sign up') {
+                    console.log(response.data)
+                    this.setState({ error: true })
+                }
+                else {
+                    this.setState({error:false,submit:true },()=>{console.log(response)
+                    
+            submitHandler();})
+                }
+            })
+        }
+        const signUpHandler = () => {
+            console.log('dfghj')
+            Axios({
+                method: 'post', url: 'http://localhost:5000/api/signup', data: qs.stringify({
+                    username: this.state.controls.email.value,
+                    password: this.state.controls.password.value
+                })
+            }).then(response => {       
+                if(response.data==='Username already Exists'){
+                    console.log(response)
+                    this.setState({error:true})
+                }
+                else{
+                    submitHandler();
+                    this.setState({error:false},()=>{
+                        console.log('sdfghui')
+                    })
+                }
+                console.log(response)
+            }
+            ).catch(error=>{console.log(error)})
+        }
         const formElementsArray = [];
         for (let key in this.state.controls) {
             formElementsArray.push({
@@ -127,50 +174,41 @@ class Auth extends Component {
         if (this.props.loading) {
             form = <Spinner />
         }
-
-        let errormessage = null;
-        if (this.props.error) {
-            errormessage = (
-                <p>{this.props.error.message}</p>
-            )
+        
+        let button1 = <Button color="primary" variant="contained" onClick={() => signInHandler()}>SIGN IN</Button>
+        if (this.state.isSignUp) {
+            button1 = <Button color="primary" variant="contained" onClick={() => signUpHandler()}>SIGN UP</Button>
         }
-
         return (
+
             <div className={classes.Appheader}>
                 <div>
-                    <h1 className={classes.content}>VIRTUAL CARETAKER</h1>
+                <h1 className={classes.content}>VIRTUAL CARETAKER</h1>
                 </div>
                 <div className={classes.flex}>
                     <div className={classes.Auth}>
-                        {errormessage}
-                        <form onSubmit={this.submitHandler}>
+                    {this.state.error && !this.state.isSignUp ?<p>Incorrect Credentials, try Again or Sign Up</p> : null}
+                    {this.state.error && this.state.isSignUp ?<p>Username already exists</p> : null}
+                        <form onSubmit={()=>submitHandler}>
                             {form}
-                            <Button variant="contained" btnType="Success">SUBMIT</Button>
+                            {button1}
                         </form>
-                        <Button onClick={this.switchAuthModeHandler} btnType='Danger'>SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
+                        <Button onClick={()=>switchAuthModeHandler()} btnType='Danger'>SWITCH TO {this.state.isSignUp ? ' SIGN-IN' : 'SIGN-UP'}</Button>
                     </div>
                     <div>
                         <img src={doctor} />
                     </div>
                 </div>
-
             </div>
-
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        // loading: state.auth.loading,
-        // error: state.auth.error
-    }
-}
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
+        onAuth: (email,password)=>dispatch(actions.cred_update(email, password))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(null, mapDispatchToProps)(Auth);

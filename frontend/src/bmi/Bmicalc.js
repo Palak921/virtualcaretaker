@@ -3,6 +3,9 @@ import Button from '@material-ui/core/Button'
 import './bmi.css';
 import Aimlogo from '../images/AimLogo.gif';
 import Header from '../Header/Header';
+import axios from "axios";
+import qs from 'qs';
+import { connect } from "react-redux";
 
 class BMICalculater extends Component {
     state = {
@@ -27,7 +30,17 @@ class BMICalculater extends Component {
             }
             else {
                 let bmi = (this.state.wval / ((this.state.hval * this.state.hval) / 1000)).toFixed(2);
-                this.setState({ bmi: bmi })
+                this.setState({ bmi: bmi },()=>{
+                    axios({method:'POST',url:'http://localhost:5000/api/bmi',
+                  data:qs.stringify({
+                       username:this.props.username,
+                       height:this.state.hval,
+                       weight:this.state.wval,
+                       bmi:this.state.bmi
+                  }).then(response=>{console.log(response)}).
+                  catch(error=>{console.log(error)})
+                })
+                })
             }
         }
         let answer = ''
@@ -86,4 +99,9 @@ class BMICalculater extends Component {
         )
     }
 }
-export default BMICalculater
+const mapStateToProps=state=>{
+    return{
+        username:state.username
+}
+}
+export default connect(mapStateToProps)(BMICalculater)
