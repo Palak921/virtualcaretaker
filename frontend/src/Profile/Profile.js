@@ -46,7 +46,8 @@ class Profile extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='row2'>Information</div>
+                    <div className='row2'>Information
+                    </div>
                 </div>
             </div>
         )

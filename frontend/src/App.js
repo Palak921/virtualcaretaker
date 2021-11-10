@@ -1,4 +1,4 @@
-import Auth from './Login';
+
 import './App.css';
 import reducer from './store/Reducers/ProfileReducer'
 import { createStore } from 'redux';
@@ -9,8 +9,8 @@ import Caloriecounter from './bmi/Caloriecounter'
 import './App.css';
 import Mainpage from './Mainpage';
 import Homepage  from './homepage';
-import Profile from './Profile/Profile'
-
+import Profile from './Profile/Profile';
+import Login from './Login';
 
 function App() {
   const store = createStore(reducer)
@@ -18,7 +18,7 @@ function App() {
     <Provider store={store}>
     <div className="App App-header">
      <BrowserRouter>
-     <Route path="/" exact component={Auth}/>
+     <Route path="/" exact component={Login}/>
      <Route path="/bmi" exact component={BMICalculater}/>
      <Route path="/cal" exact component={Caloriecounter}/>
      <Route path="/mainpage" exact component={Mainpage}/>
