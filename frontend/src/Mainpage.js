@@ -6,6 +6,7 @@ import hospitaldata from './data/hospitals';
 import qs from 'qs'
 import { connect } from "react-redux";
 import axios from "axios";
+import diet from './data/diet'
 
 class Mainpage extends Component {
    state = {
@@ -462,17 +463,22 @@ class Mainpage extends Component {
       }
       let dietlist=[]
       const dietreccomendations=()=>{
-         if(this.state.sugarabnormality || this.state.bpabnormality==false){
-            dietlist.push('normal diet')
+         if(this.state.sugarabnormality && this.state.sugarresult==='You are hyperglycemic'){
+            dietlist.push(diet.hyperglycemia)
          }
-         if(this.state.sugarabnormality){
-            dietlist.push('sugar diet')
+         if(this.state.sugarabnormality && this.state.sugarresult==='You are hypoglycemic'){
+            dietlist.push(diet.hypoglycemia)
          }
-         if(this.state.bpabnormality){
-            dietlist.push('bp diet')
+         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy'){
+            dietlist.push(diet.hyperbp)
          }
-         this.setState({diet_Reccomendations:dietlist})
+         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy'){
+            dietlist.push(diet.hypobp)
+         }
+  
+         this.setState({diet_Reccomendations:dietlist},()=>{console.log(this.state.diet_Reccomendations)})
       }
+
 
       let dietReccomendations=null
       dietReccomendations=this.state.diet_Reccomendations.map((i,ind)=>{return(
