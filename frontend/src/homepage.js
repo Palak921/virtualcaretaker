@@ -12,20 +12,39 @@ class Homepage extends Component {
                     <Header />
                 </div>
                 <div className='home'>
+                    {/* <h1><strong>VIRTUAL CARETAKER</strong></h1> */}
                     <div className="image">
-                        <strong>VIRTUAL CARETAKER</strong>
                         <img src={doctors} />
                     </div>
                     <div className="rowele">
+                        <button className="ui semantic primary button">
+                            <Link to="/bmi">
+                               <p className="font">BMI Calculator</p>
+                            </Link>
+                        </button>
+                        <button className="ui semantic primary button">
+                            <Link to="/cal">
+                            <p className="font">Calorie Predictor</p>
+                            </Link>
+                        </button>
+                        <button className="ui semantic primary button">
+                            <Link to="/mainpage">
+                            <p className="font">Blood Pressure and Sugar Levels</p>
+                            </Link>
+                        </button>
+
+                    </div>
+                    {/* <div className="rowele">
                         <div className="btn">
                             <Link to='/bmi'>
+                                <p className="button">BMI Calculator</p>
                                 <Button as="div" color="blue">BMI Calculator</Button>
                             </Link>
                         </div>
 
                         <div className="btn">
                             <Link to='/cal'>
-                                <Button color="blue">Caloriecounter</Button>
+                                <Button color="blue">Calorie Predictor</Button>
                             </Link>
                         </div>
 
@@ -34,8 +53,8 @@ class Homepage extends Component {
                                 <Button as="div" color="blue">Mainpage</Button>
                             </Link>
                         </div>
-                        
-                    </div>
+
+                    </div> */}
                 </div>
             </div>
 

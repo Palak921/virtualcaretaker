@@ -7,52 +7,47 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 class Example extends React.Component {
 
   state = {
-    change: true
+    curr: new Date().getHours(),
+    change : true,
+    not : 0
   }
-
   componentDidMount() {
-    if (this.props.curr % 2 == 0) {
-      NotificationManager.info("It's time to hydrate");
-    }
-    // this.setState({ change: false });
-    // this.props.Notify()
+    var today = new Date();
+    setInterval(() => this.change(), 1000 * 60 * 60)
   }
 
-  Not = () => {
-    this.props.Notify()
+  change() {
+    this.setState({ curr: new Date().getMinutes(), not : 1})
   }
+
 
   componentDidUpdate() {
-    // this.props.Notify()
+      NotificationManager.info("It's time to hydrate")
   }
 
   render() {
-    console.log(this.props.not)
+    console.log(this.state.curr)
     return (
       <div>
-        {/* <p onClick={this.createNotification('info')}>i</p> */}
-        {/* <p>{this.props.not}</p> */}
-        <NotificationContainer/>
-        {/* {this.props.curr % 2 == 0 && this.props.not == 0 ? <NotificationContainer /> : ''} */}
+        <NotificationContainer />
       </div>
     );
   }
+  
 }
 
 
 const mapStateToProps = state => {
   return {
-    // loading: state.auth.loading,
-    // error: state.auth.error
-    not: state.not
+    not: state.not,
+    loading: state.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    Notify: () => dispatch({ type: 'update_not' })
+    Notify: () => dispatch({ type: 'UPDATE_NOT' })
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Example);
-// export default Example;

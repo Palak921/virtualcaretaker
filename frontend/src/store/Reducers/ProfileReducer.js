@@ -1,3 +1,4 @@
+import { profile_update } from '..';
 import * as actionTypes from '../actionTypes';
 import { updateObject } from '../utility';
 
@@ -10,7 +11,8 @@ const profilestate={
     diastolic:'',
     systolic:'',
     bpresult:'',
-    sugarresult:''
+    sugarresult:'',
+    not: 0
 }
 
 const ProfileReducer=(state=profilestate,action)=>{
@@ -30,6 +32,12 @@ const ProfileReducer=(state=profilestate,action)=>{
             return updateObject(state,{
                 username:action.username,
                 password:action.password
+            })
+        }
+        case 'UPDATE_NOT':{
+            console.log("hello")
+            return updateObject(state,{
+                not : this.state.not +1
             })
         }
         default: return state;

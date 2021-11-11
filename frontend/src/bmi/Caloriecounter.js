@@ -76,7 +76,7 @@ class Caloriecounter extends Component {
       <div class="com">
         <Header />
         <div class="calorie">
-          <h1 class="heading">Calorie Calculator</h1>
+          <h1 class="heading">Calorie Predictor</h1>
           <div class="con">
             <div class="con1">
               <p >Age</p>

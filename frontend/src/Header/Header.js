@@ -9,33 +9,19 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
 
-  state = {
-    curr: 0
-  }
-  componentDidMount() {
-    var today = new Date();
-    this.setState({ curr: today.getHours() })
-  }
-
-  change (current){
-    this.setState({curr : current+1})
-  }
-
   render() {
-    var date = new Date();
     return (
       <AppBar position="static">
         <Toolbar>
           <div class="Nav">
             {/* <p>Navbar</p> */}
+            <Link to="/" className="profile">Logout</Link>
+            <p>  </p>
             <Link to="/homepage"><i class="home icon"></i></Link>
             <p>   </p>
             <Link to="/profile" className="profile">Profile</Link>
             <p>   </p>
-            <Link to="/" className="profile" onClick={ () => this.change(this.state.curr)  }>Home</Link>
-            {/* {this.state.curr} */}
-            {date.getHours}
-            <Notification  curr ={this.state.curr}/>
+            <Notification />
           </div>
         </Toolbar>
       </AppBar>

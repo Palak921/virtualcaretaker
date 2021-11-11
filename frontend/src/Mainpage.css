@@ -67,7 +67,7 @@ p{
 }
 
 .btn{
-    width: 30%;
+    width: 30% !important;
     margin: 0.8em !important;
     margin-left: 35% !important;
 }

@@ -5,7 +5,8 @@ const initialState = {
     password: '',
     path: '',
     signup: false,
-    isAuthenticated: false
+    isAuthenticated: false,
+    not : "0"
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +23,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...initialState,
                 isAuthenticated: true
+            }
+            case  'update_not':{
+                console.log("hello")
+                return {
+                    ...initialState,
+                       not : not + 1
+                }
             }
 
         default: return state;
