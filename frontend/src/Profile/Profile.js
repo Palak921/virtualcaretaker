@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import dummy from '../images/dummy.jpg';
 import axios from "axios";
 import qs from 'qs'
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 
 class Profile extends Component {
@@ -69,39 +70,94 @@ class Profile extends Component {
             catch(error => { console.log(error) })
     }
     render() {
-        return (
-            <div>
+        console.log(this.state.age == '')
+
+        if (this.state.username == '') {
+            return (
                 <div>
-                    <Header />
-                </div>
-                <div className='container'>
-                    <div className='row1'>
-                        <div>
-                            <img className="picture" src={dummy} />
+                    <div>
+                        <Header />
+                    </div>
+                    <div className='container'>
+                        <div className='row1'>
+                            <div>
+                                <img className="picture" src={dummy} />
+                            </div>
+                            <div> {this.state.username} </div>
+                            <div className="information">
+                                <div className="info">
+                                    <div className="label">Age  </div>
+                                    <input disabled placeholder={this.state.age}></input>
+                                </div>
+
+                                <div className="info">
+                                    <div className="label">Gender    </div>
+                                    <input disabled placeholder={this.state.gender}></input>
+                                </div>
+
+                                <div className="info">
+                                    <div className="label">BMI   </div>
+                                    <input disabled placeholder={this.state.bmi}></input>
+                                </div>
+                            </div>
                         </div>
-                        <div> User Name </div>
-                        <div className="information">
-                            <div className="info">
-                                <div className="label">Age    </div>
-                                <input disabled placeholder="age"></input>
+                        <div className='row2'>
+                            <div className="error1">Please Enter you details in MainPage</div>
+                            <button className="ui primary semantic button"> <Link to="/mainpage">Main Page</Link> </button>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <div>
+                        <Header />
+                    </div>
+                    <div className='container'>
+                        <div className='row1'>
+                            <div>
+                                <img className="picture" src={dummy} />
                             </div>
+                            <div> {this.state.username} </div>
+                            <div className="information">
+                                <div className="info">
+                                    <div className="label">Age  </div>
+                                    <input disabled placeholder={this.state.age}></input>
+                                </div>
 
-                            <div className="info">
-                                <div className="label">Height    </div>
-                                <input disabled placeholder="height"></input>
+                                <div className="info">
+                                    <div className="label">Gender    </div>
+                                    <input disabled placeholder={this.state.gender}></input>
+                                </div>
+
+                                <div className="info">
+                                    <div className="label">BMI   </div>
+                                    <input disabled placeholder={this.state.bmi}></input>
+                                </div>
                             </div>
-
-                            <div className="info">
-                                <div className="label">Weight    </div>
-                                <input disabled placeholder="weight"></input>
+                        </div>
+                        <div className='row2'>
+                            <h1><strong>Your Previous Report</strong></h1>
+                            <div className="information">
+                                <div className="information1">
+                                    <p><strong>UserName : </strong>{this.state.username}</p>
+                                    <p><strong>Age : </strong>{this.state.age}</p>
+                                    <p> <strong>Blood Pressure </strong> </p>
+                                    <p> Diastolic bp :{this.state.dia}</p>
+                                    <p>Systolic bp : {this.state.sys}</p>
+                                    <p><strong>Blood Pressure Result: </strong>{this.state.bpresult}</p>
+                                    <p><strong>Sugar</strong></p>
+                                    <p> Sugar level : {this.state.sugar}</p>
+                                    <p><strong>Sugar Result  : </strong>{this.state.sugarresult}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className='row2'>Information
-                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+
     }
 }
 

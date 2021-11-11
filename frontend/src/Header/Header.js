@@ -17,11 +17,12 @@ class Navbar extends Component {
         <Toolbar>
           <div class="Nav">
             {/* <p>Navbar</p> */}
+            <Link to="/" className="profile">Logout</Link>
+            <p>  </p>
             <Link to="/homepage"><i class="home icon"></i></Link>
             <p>   </p>
             <Link to="/profile" className="profile">Profile</Link>
             <p>   </p>
-            <Link to="/" className="profile">Home</Link>
             <Notification />
           </div>
         </Toolbar>

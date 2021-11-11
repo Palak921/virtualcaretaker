@@ -9,8 +9,8 @@ import Caloriecounter from './bmi/Caloriecounter'
 import './App.css';
 import Mainpage from './Mainpage';
 import Homepage from './homepage';
-// import Profile from './Profile/Profile';
-import Profile from './Profile'; 
+import Profile from './Profile/Profile';
+// import Profile from './Profile'; 
 import Login from './Login';
 
 function App() {
