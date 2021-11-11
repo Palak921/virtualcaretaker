@@ -18,7 +18,9 @@ class Profile extends Component {
         bmi: '',
         calorie: '',
         sugarresult: '',
-        bpresult: ''
+        bpresult: '',
+        height:'',
+        weight:''
     }
     componentDidMount=()=>{
         axios({method:'post',
@@ -29,7 +31,7 @@ class Profile extends Component {
     }).then(response=>{
             response=response.data
            
-            let a='',g='',s='',d='',sug='',bm='',sr='',br='';
+            let a='',g='',s='',d='',sug='',bm='',sr='',br='',h='',w='';
             if(response.age){
                 a=response.age
             }
@@ -54,6 +56,12 @@ class Profile extends Component {
             if (response.bpresult) {
                 br = response.bpresult
             }
+            if(response.weight){
+                w=response.weight
+            }
+            if(response.height){
+                h=response.height
+            }
             this.setState({
                 username:response.username,
                 age:a,
@@ -63,13 +71,14 @@ class Profile extends Component {
                 sugar:sug,
                 bmi:bm,
                 sugarresult:sr,
-                bpresult:br
+                bpresult:br,
+                weight:w,
+                height:h
             })
         })
     }
     
     render() {
-        console.log(this.state.age == '')
 
         if (this.state.username == '') {
             return (
@@ -87,6 +96,7 @@ class Profile extends Component {
                                 <div className="info">
                                     <div className="label">Age  </div>
                                     <input disabled placeholder={this.state.age}></input>
+                        
                                 </div>
 
                                 <div className="info">
@@ -101,8 +111,8 @@ class Profile extends Component {
                             </div>
                         </div>
                         <div className='row2'>
-                            <div className="error1">Please Enter you details in MainPage</div>
-                            <button className="ui primary semantic button"> <Link to="/mainpage">Main Page</Link> </button>
+                            <div className="error1">Not logged in.Please sign in/up before</div>
+                            <Link to="/"><button className="ui primary semantic button"> Login </button></Link>
                         </div>
                     </div>
                 </div>
@@ -123,6 +133,8 @@ class Profile extends Component {
                                 <div className="info">
                                     <div className="label">Age  </div>
                                     <input disabled placeholder={this.state.age}></input>
+                                    
+                                   
                                 </div>
 
                                 <div className="info">
@@ -141,7 +153,11 @@ class Profile extends Component {
                             <div className="information">
                                 <div className="information1">
                                     <p><strong>UserName : </strong>{this.state.username}</p>
+
                                     <p><strong>Age : </strong>{this.state.age}</p>
+                                    <p><strong>Height (cm) </strong>{this.state.height}</p>
+                                    <p><strong>Weight (kg) </strong>{this.state.weight}</p>
+                                    
                                     <p> <strong>Blood Pressure </strong> </p>
                                     <p> Diastolic bp :{this.state.dia}</p>
                                     <p>Systolic bp : {this.state.sys}</p>

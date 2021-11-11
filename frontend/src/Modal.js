@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react'
 
 function ModalExampleModal(props) {
     const [open, setOpen] = React.useState(false)
-    console.log(props.name == "hospitals")
+
     if (props.name == "hospitals") {
         return (
             <Modal

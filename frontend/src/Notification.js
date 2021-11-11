@@ -26,7 +26,7 @@ class Example extends React.Component {
   }
 
   render() {
-    console.log(this.state.curr)
+ 
     return (
       <div>
         <NotificationContainer />

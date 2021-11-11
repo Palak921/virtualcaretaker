@@ -30,7 +30,7 @@ class BMICalculater extends Component {
                 this.setState({ errorMessage: 'Please make sure the values you entered are correct' })
             }
             else {
-                let bmi = (this.state.wval / ((this.state.hval * this.state.hval) / 1000)).toFixed(2);
+                let bmi = (this.state.wval*10000 / (this.state.hval * this.state.hval)).toFixed(2);
                 this.setState({ bmi: bmi },()=>{
                     axios({method:'POST',url:'http://localhost:5000/api/bmi',
                   data:qs.stringify({
@@ -79,10 +79,10 @@ class BMICalculater extends Component {
                         <h1 class="heading">BMI Calculator</h1>
                         <strong>Enter your height and weight using standard measures</strong><br />
                         <p class="content">Height (in cm)
-                            <input class="ip" type="text" id="height" onChange={(e) => weighthandler(e)} value={this.state.wval}></input>
+                            <input class="ip" type="text" id="height" onChange={(e) =>heighthandler(e)} value={this.state.hval}></input>
                         </p>
                         <p class="content">Weight (in kg)
-                            <input class="ip" type="text" id="weight" onChange={(e) => heighthandler(e)} value={this.state.hval}></input>
+                            <input class="ip" type="text" id="weight" onChange={(e) => weighthandler(e)} value={this.state.wval}></input>
                         </p>
                         <br />
                         {/* <button id="btn" onClick={(e)=>reshandler(e)}>Calculate</button> */}
