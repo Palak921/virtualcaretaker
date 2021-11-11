@@ -6,6 +6,7 @@ import hospitaldata from './data/hospitals';
 import qs from 'qs'
 import { connect } from "react-redux";
 import axios from "axios";
+import diet from './data/diet'
 
 class Mainpage extends Component {
    state = {
@@ -446,33 +447,38 @@ class Mainpage extends Component {
             this.setState({ sugarresult: report,sugarabnormality:sugarans }, () => {
                console.log(this.state.sugarresult)
               axios({method:'post',
-                    url:'http://localhost:5000/api/bloodsugar',
+                    url:'http://localhost:5000/api/sugarresult',
                     data:qs.stringify({
                               username:this.props.username,
                               bloodsugar:this.state.sugar,
                               sugarresult:this.state.sugarresult,
                               age:this.state.age,
                               gender:this.state.gender,
-                           }).then(response=>{console.log(response)}).
+                           })
+                        }).then(response=>{console.log(response)}).
                            catch(error=>{console.log(error)})
-               })
             }
             )
          }
       }
       let dietlist=[]
       const dietreccomendations=()=>{
-         if(this.state.sugarabnormality || this.state.bpabnormality==false){
-            dietlist.push('normal diet')
+         if(this.state.sugarabnormality && this.state.sugarresult==='You are hyperglycemic'){
+            dietlist.push(diet.hyperglycemia)
          }
-         if(this.state.sugarabnormality){
-            dietlist.push('sugar diet')
+         if(this.state.sugarabnormality && this.state.sugarresult==='You are hypoglycemic'){
+            dietlist.push(diet.hypoglycemia)
          }
-         if(this.state.bpabnormality){
-            dietlist.push('bp diet')
+         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy'){
+            dietlist.push(diet.hyperbp)
          }
-         this.setState({diet_Reccomendations:dietlist})
+         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy'){
+            dietlist.push(diet.hypobp)
+         }
+  
+         this.setState({diet_Reccomendations:dietlist},()=>{console.log(this.state.diet_Reccomendations)})
       }
+
 
       let dietReccomendations=null
       dietReccomendations=this.state.diet_Reccomendations.map((i,ind)=>{return(
@@ -538,20 +544,7 @@ class Mainpage extends Component {
                   <br />
                </strong>
 
-               <p className="top1">
-                  <p className="top">Age
-                     <input type="text" required id="age" onChange={(e) => agehandler(e)} placeholder={this.state.age}></input>
-                  </p>
-                  {/* </p> */}
-                  {/* <p className="top1"> */}
-                  <p className="gender">
-                     Gender
-                     <input className="radio" type="radio" required id='men' name="gender" value="Male" onChange={(e) => genHandler(e)}></input>
-                     <label for="men">Male</label>
-                     <input className="radio" type="radio" id='women' required name="gender" value="Female" onChange={(e) => genHandler(e)}></input>
-                     <label for="women">Female</label><br></br>
-                  </p>
-               </p>
+               
                <p>Systolic(Top) Blood Pressure</p>
                <input type="text" id="bp" onChange={(e) => sbpHandler(e)} placeholder={this.state.sbp}></input>
                <p>Diastolic(Bottom) Blood Pressure</p>
@@ -566,6 +559,20 @@ class Mainpage extends Component {
             </div>
             <div className="co">
                <p> <strong>Sugar</strong> </p>
+               <p className="top1">
+                  <p className="top">Age
+                     <input type="text" required id="age" onChange={(e) => agehandler(e)} placeholder={this.state.age}></input>
+                  </p>
+                  {/* </p> */}
+                  {/* <p className="top1"> */}
+                  <p className="gender">
+                     Gender
+                     <input className="radio" type="radio" required id='men' name="gender" value="Male" onChange={(e) => genHandler(e)}></input>
+                     <label for="men">Male</label>
+                     <input className="radio" type="radio" id='women' required name="gender" value="Female" onChange={(e) => genHandler(e)}></input>
+                     <label for="women">Female</label><br></br>
+                  </p>
+               </p>
                <input type="text" id="bp" onChange={(e) => sugarHandler(e)} placeholder={this.state.sugar}></input>
                {/* <legend></legend> */}
                <p>Please select appropriate option from the dropdown list</p>
@@ -578,7 +585,8 @@ class Mainpage extends Component {
                   </select>
                </div>
                <p>{this.state.sugarresult}</p>
-               <button onClick={()=>dietreccomendations()}>Diet Recommedations</button>
+               <Button color="blue" className="btn" onClick={(e) => diagnoseSugarHandler(e)}>Diagnose</Button>
+               <Button color="blue" className="btn" onClick={()=>dietreccomendations()}>Diet Recommedations</Button>
                {hospitalbutton}
                {dietReccomendations}
                {hospitallist}
