@@ -1,7 +1,7 @@
 const diet=[
 {
-    hypoglycemia:`
-     #BreakFast:
+   
+     hyperglycemia:`#BreakFast:
      Must be rich in Protein: like scrambled eggs, hard boiled eggs and a slice of whole-grain bread with cinnamon 
      protein-packed oatmeal with blueberries, sunflower seeds, 
     plain Greek yogurt with berries, honey
@@ -38,10 +38,32 @@ hyperglycemia:`#Breakfast
 `
 },
 {
-hyperbp:'hyperbp'
+hypobp:`1. Drink plenty of water
+2.Drink Caffeine:Coffee Helps Raise Low Blood Pressure
+3.Foods high in vitamin B12 such as eggs, meat, milk products, fortified breakfast cereals, and some nutritional yeast products
+4.Foods high in folate such as dark leafy green vegetables, fruits, nuts, beans, eggs, dairy, meat, poultry, seafood, and grains.
+5.Beef liver:Beef liver is one of the best sources of vitamin B12. A 100 gram serving of liver contains an incredibly high amount of B12. 
+6.There are many other foods that will help increase your salt, vitamin B12, folic acid, and iron levels. These include: 
+Beef,Olives,Cottage cheese,Broccoli,Asparagus,Lentils,Chickpeas,Chicken and Fish
+`
 },
 {
-hypobp:'howbp'
+hyperbp:`1.Grains: 6 to 8 servings a day. 
+One serving is one slice bread, 1 ounce dry cereal, or 1/2 cup cooked cereal, rice or pasta.
+2.Vegetables: 4 to 5 servings a day.
+ One serving is 1 cup raw leafy green vegetable, 1/2 cup cut-up raw or cooked vegetables, or 1/2 cup vegetable juice.
+3.Fruits: 4 to 5 servings a day. 
+One serving is one medium fruit, 1/2 cup fresh, frozen or canned fruit, or 1/2 cup fruit juice.
+4.Fat-free or low-fat dairy products: 2 to 3 servings a day.
+One serving is 1 cup milk or yogurt, or 1 1/2 ounces cheese.
+5.Lean meats, poultry and fish: six 1-ounce servings or fewer a day. 
+One serving is 1 ounce cooked meat, poultry or fish, or 1 egg.
+6.Nuts, seeds and legumes: 4 to 5 servings a week.
+One serving is 1/3 cup nuts, 2 tablespoons peanut butter, 2 tablespoons seeds, or 1/2 cup cooked legumes (dried beans or peas).
+7.Fats and oils: 2 to 3 servings a day. 
+One serving is 1 teaspoon soft margarine, 1 teaspoon vegetable oil, 1 tablespoon mayonnaise or 2 tablespoons salad dressing.
+8.Sweets and added sugars: 5 servings or fewer a week. 
+One serving is 1 tablespoon sugar, jelly or jam, 1/2 cup sorbet, or 1 cup lemonade.`
 }
 ]
 export default diet

@@ -98,7 +98,11 @@ class Mainpage extends Component {
             const sys = this.state.sbp;
             const dia = this.state.dbp;
             if (sys != 0 && dia != 0) {
-               if (sys < 120 && dia < 80) {
+               if(sys<90 && dia<60){
+                  bpreport='Your blood Pressure is low'
+                  bpans=true
+               }
+               else if (sys < 120 && dia < 80) {
                   bpreport='You are perfectly Healthy'
                   bpans=false
                }
@@ -462,18 +466,19 @@ class Mainpage extends Component {
          }
       }
       let dietlist=[]
-      const dietreccomendations=()=>{
+      const diethandler=()=>{
          if(this.state.sugarabnormality && this.state.sugarresult==='You are hyperglycemic'){
-            dietlist.push(diet.hyperglycemia)
+            console.log(diet[0].hyperglycemia)
+            dietlist.push(diet[0].hyperglycemia)
          }
          if(this.state.sugarabnormality && this.state.sugarresult==='You are hypoglycemic'){
-            dietlist.push(diet.hypoglycemia)
+            dietlist.push(diet[1].hyperglycemia)
          }
-         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy'){
-            dietlist.push(diet.hyperbp)
+         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy' && this.state.bpresult!=='Your blood Pressure is low'){
+            dietlist.push(diet[3].hyperbp)
          }
-         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy'){
-            dietlist.push(diet.hypobp)
+         if(this.state.bpabnormality && this.state.bpresult=='Your blood Pressure is low'){
+            dietlist.push(diet[2].hypobp)
          }
   
          this.setState({diet_Reccomendations:dietlist},()=>{console.log(this.state.diet_Reccomendations)})
@@ -505,6 +510,10 @@ class Mainpage extends Component {
       let hospitallist = null
       if (this.state.bpabnormality || this.state.sugarabnormality) {
          hospitalbutton = <Button color="blue" className="btn" onClick={(e) => hospitalhandler(e)}>Hospitals near me</Button>
+      }
+      let dietbutton=null
+      if (this.state.bpabnormality || this.state.sugarabnormality) {
+         dietbutton = <Button color="blue" className="btn" onClick={(e) => diethandler(e)}>Diet Reccomendations</Button>
       }
 
       let hosp = []
@@ -586,8 +595,8 @@ class Mainpage extends Component {
                </div>
                <p>{this.state.sugarresult}</p>
                <Button color="blue" className="btn" onClick={(e) => diagnoseSugarHandler(e)}>Diagnose</Button>
-               <Button color="blue" className="btn" onClick={()=>dietreccomendations()}>Diet Recommedations</Button>
                {hospitalbutton}
+               {dietbutton}
                {dietReccomendations}
                {hospitallist}
             </div>
