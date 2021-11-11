@@ -14,7 +14,7 @@ class Profile extends Component {
         dia: '',
         sugar: '',
         bmi: '',
-        calorie: ''
+        calorie: '' 
 
     }
     render() {
@@ -48,7 +48,7 @@ class Profile extends Component {
                     </div>
                     <div className='row2'>Information
                     </div>
-                </div>
+                </div> 
             </div>
         )
     }

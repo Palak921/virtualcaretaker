@@ -25,7 +25,7 @@ class Homepage extends Component {
 
                         <div className="btn">
                             <Link to='/cal'>
-                                <Button color="blue">Caloriecounter</Button>
+                                <Button color="blue">Calorie Predictor</Button>
                             </Link>
                         </div>
 
