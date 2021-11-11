@@ -99,12 +99,10 @@ class Auth extends Component {
                 return {
                     isSignUp: !prevState.isSignUp
                 }
-            },()=>{console.log(this.state.isSignUp)})
+            })
         }
 
         const submitHandler = (event) => {
-            // event.preventDefault();
-            console.log(this.state.controls.email.value,this.state.controls.password.value)
             this.props.onAuth(this.state.controls.email.value,this.state.controls.password.value)
             this.props.history.push('/homepage')
         }
@@ -119,18 +117,17 @@ class Auth extends Component {
                 })
             }).then(response => {
                 if (response.data === 'Incorrect login credentials,please try again or sign up') {
-                    console.log(response.data)
+                    
                     this.setState({ error: true })
                 }
                 else {
-                    this.setState({error:false,submit:true },()=>{console.log(response)
-                    
+                    this.setState({error:false,submit:true },()=>{                   
             submitHandler();})
                 }
             })
         }
         const signUpHandler = () => {
-            console.log('dfghj')
+           
             Axios({
                 method: 'post', url: 'http://localhost:5000/api/signup', data: qs.stringify({
                     username: this.state.controls.email.value,
@@ -138,18 +135,17 @@ class Auth extends Component {
                 })
             }).then(response => {       
                 if(response.data==='Username already Exists'){
-                    console.log(response)
+                   
                     this.setState({error:true})
                 }
                 else{
                     submitHandler();
                     this.setState({error:false},()=>{
-                        console.log('sdfghui')
+                      
                     })
                 }
-                console.log(response)
             }
-            ).catch(error=>{console.log(error)})
+            )
         }
         const formElementsArray = [];
         for (let key in this.state.controls) {

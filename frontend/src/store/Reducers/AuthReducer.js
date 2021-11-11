@@ -35,7 +35,7 @@ const Authreducer = (state = initialState, action) => {
             })
         }
         case 'update_not' :{
-            console.log("hello")
+           
             return updateObject(state,{
                 not : 1
             })

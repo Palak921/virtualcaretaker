@@ -20,28 +20,28 @@ class Caloriecounter extends Component {
   render() {
 
     const weighthandler = (e) => {
-      this.setState({ wval: e.target.value }, () => { console.log(this.state.wval) })
+      this.setState({ wval: e.target.value })
     }
 
     const heighthandler = (e) => {
-      this.setState({ hval: e.target.value }, () => { console.log(this.state.hval) })
+      this.setState({ hval: e.target.value })
     }
 
     const agehandler = (e) => {
-      this.setState({ age: e.target.value }, () => { console.log(this.state.age) })
+      this.setState({ age: e.target.value })
     }
 
     const activityhandler = (e) => {
-      this.setState({ activity: e.target.value }, () => { console.log(this.state.activity) })
+      this.setState({ activity: e.target.value })
     }
 
     const genHandler = (e) => {
-      this.setState({ gender: e.target.id }, () => { console.log(this.state.gender) })
+      this.setState({ gender: e.target.id })
     }
 
     const reshandler = (e) => {
       e.preventDefault()
-      if (this.state.age === '' || this.state.wval === '' || this.state.hval === '' || this.state.age == '') {
+      if (this.state.age === '' || this.state.wval === '' || this.state.hval === '' || this.state.age === '') {
         this.setState({ errorMessage: 'Please make sure the values you entered are correct' })
       }
       else if (this.state.gender === 'men' && this.state.activity === "1") {

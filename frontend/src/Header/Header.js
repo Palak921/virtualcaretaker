@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import HomeIcon from '@mui/icons-material/Home';
-import { Icon } from 'semantic-ui-react'
 import Notification from '../Notification';
 
 import './Header.css';

@@ -26,7 +26,7 @@ class Profile extends Component {
         })
     }).then(response=>{
             response=response.data
-            console.log(response)
+           
             let a='',g='',s='',d='',sug='',bm='',sr='',br='';
             if(response.age){
                 a=response.age
@@ -62,10 +62,10 @@ class Profile extends Component {
                 bmi:bm,
                 sugarresult:sr,
                 bpresult:br
-            },()=>{console.log(this.state)})
-        }).
-        catch(error=>{console.log(error)})
+            })
+        })
     }
+    
     render() {
         return (
             <div>

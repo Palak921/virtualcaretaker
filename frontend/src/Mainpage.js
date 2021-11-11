@@ -33,11 +33,11 @@ class Mainpage extends Component {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ age: parseInt(e.target.value) }, () => { console.log(this.state.age) })
+         this.setState({ age: parseInt(e.target.value) })
       }
 
       const genHandler = (e) => {
-         this.setState({ gender: e.target.id }, () => { console.log(this.state.gender) })
+         this.setState({ gender: e.target.id })
       }
 
       const sbpHandler = (e) => {
@@ -51,14 +51,14 @@ class Mainpage extends Component {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ dbp: parseInt(e.target.value) }, () => { console.log(this.state.dbp) })
+         this.setState({ dbp: parseInt(e.target.value) })
       }
 
       const sugarHandler = (e) => {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ sugar: parseInt(e.target.value) }, () => { console.log(this.state.sugar) })
+         this.setState({ sugar: parseInt(e.target.value) })
       }
 
       const pregHandler = (e) => {
@@ -132,8 +132,7 @@ class Mainpage extends Component {
                         systolic:this.state.sbp,
                         bpresult:this.state.bpresult
                     })
-                  }).then(response=>{console.log(response)}).
-                  catch(error=>{console.log(error)})
+                  })
             })
          }
       }
@@ -141,7 +140,6 @@ class Mainpage extends Component {
       const diagnoseSugarHandler = (e) => {
          e.preventDefault()
          let error=''
-         console.log(this.state.preg, this.state.bloodSugarType, this.state.age, this.state.sugar, this.state.gender == 'not selected')
          if (this.state.age == 0 || this.state.gender == 'not selected' || this.state.sugar == 0) {
 
             if (this.state.age == 0) {
@@ -449,7 +447,6 @@ class Mainpage extends Component {
                }
             }
             this.setState({ sugarresult: report,sugarabnormality:sugarans }, () => {
-               console.log(this.state.sugarresult)
               axios({method:'post',
                     url:'http://localhost:5000/api/sugarresult',
                     data:qs.stringify({
@@ -459,8 +456,7 @@ class Mainpage extends Component {
                               age:this.state.age,
                               gender:this.state.gender,
                            })
-                        }).then(response=>{console.log(response)}).
-                           catch(error=>{console.log(error)})
+                        })
             }
             )
          }
@@ -468,7 +464,7 @@ class Mainpage extends Component {
       let dietlist=[]
       const diethandler=()=>{
          if(this.state.sugarabnormality && this.state.sugarresult==='You are hyperglycemic'){
-            console.log(diet[0].hyperglycemia)
+
             dietlist.push(diet[0].hyperglycemia)
          }
          if(this.state.sugarabnormality && this.state.sugarresult==='You are hypoglycemic'){
@@ -481,7 +477,7 @@ class Mainpage extends Component {
             dietlist.push(diet[2].hypobp)
          }
   
-         this.setState({diet_Reccomendations:dietlist},()=>{console.log(this.state.diet_Reccomendations)})
+         this.setState({diet_Reccomendations:dietlist})
       }
 
 
@@ -522,16 +518,16 @@ class Mainpage extends Component {
          navigator.geolocation.getCurrentPosition(position => {
             this.setState({ userlatitude: position.coords.latitude, userlongitude: position.coords.longitude },
                () => {
-                  console.log(this.state.userlatitude, this.state.userlongitude)
+                 
                   for (var i = 0; i < hospitaldata.length; i++) {
                      let x = distance(this.state.userlatitude, this.state.userlongitude, hospitaldata[i].lat, hospitaldata[i].long)
                      if (x <= 5000) {
-                        console.log(x)
+                       
                         hosp.push(hospitaldata[i])
                      }
                   }
                   this.setState({ hosplist: hosp }, () => {
-                     console.log(this.state.hosplist)
+                     
                   })
                })
          })
@@ -607,7 +603,7 @@ class Mainpage extends Component {
    }
 }
 const mapStateToProps=state=>{
-   console.log(state)
+   
     return{
    username:state.username
     }
