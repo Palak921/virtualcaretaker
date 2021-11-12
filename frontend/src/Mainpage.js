@@ -7,6 +7,7 @@ import qs from 'qs'
 import { connect } from "react-redux";
 import axios from "axios";
 import diet from './data/diet'
+import BackDrop from './Modal';
 
 class Mainpage extends Component {
    state = {
@@ -19,25 +20,25 @@ class Mainpage extends Component {
       sugarresult: '',
       preg: false,
       bloodSugarType: '1',
-      userlatitude:'',
-      userlongitude:'',
-      hosplist:[],
-      bpabnormality:false,
-      sugarabnormality:false,
-      diet_Reccomendations:[]
+      userlatitude: '',
+      userlongitude: '',
+      hosplist: [],
+      bpabnormality: false,
+      sugarabnormality: false,
+      diet_Reccomendations: []
    }
-   
+
    render() {
 
       const agehandler = (e) => {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ age: parseInt(e.target.value) })
+         this.setState({ age: parseInt(e.target.value) }, () => { })
       }
 
       const genHandler = (e) => {
-         this.setState({ gender: e.target.id })
+         this.setState({ gender: e.target.id }, () => {})
       }
 
       const sbpHandler = (e) => {
@@ -51,14 +52,14 @@ class Mainpage extends Component {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ dbp: parseInt(e.target.value) })
+         this.setState({ dbp: parseInt(e.target.value) }, () => {  })
       }
 
       const sugarHandler = (e) => {
          if (e.target.value == '') {
             e.target.value = 0
          }
-         this.setState({ sugar: parseInt(e.target.value) })
+         this.setState({ sugar: parseInt(e.target.value) }, () => {  })
       }
 
       const pregHandler = (e) => {
@@ -78,8 +79,8 @@ class Mainpage extends Component {
             </div>)
       }
 
-      let bpans=false
-      let sugarans=false
+      let bpans = false
+      let sugarans = false
 
       const diagnoseBPHandler = (e) => {
          e.preventDefault();
@@ -98,48 +99,50 @@ class Mainpage extends Component {
             const sys = this.state.sbp;
             const dia = this.state.dbp;
             if (sys != 0 && dia != 0) {
-               if(sys<90 && dia<60){
-                  bpreport='Your blood Pressure is low'
-                  bpans=true
+               if (sys < 90 && dia < 60) {
+                  bpreport = 'Your blood Pressure is low'
+                  bpans = true
                }
                else if (sys < 120 && dia < 80) {
-                  bpreport='You are perfectly Healthy'
-                  bpans=false
+                  bpreport = 'You are perfectly Healthy'
+                  bpans = false
                }
                else if (sys >= 120 && sys <= 129 && dia < 80) {
-                  bpreport='Your blood Pressure is slighlty Elevated and needs care'
-                  bpans=true
+                  bpreport = 'Your blood Pressure is slighlty Elevated and needs care'
+                  bpans = true
                }
                else if (sys >= 130 && sys <= 139 || dia >= 80 && dia <= 89) {
-                  bpreport='Your blood Pressure is high.You are at Stage 1 Hypertension'
-                  bpans=true
+                  bpreport = 'Your blood Pressure is high.You are at Stage 1 Hypertension'
+                  bpans = true
                }
                else if (sys >= 140 || dia >= 90) {
-                  bpreport= 'Your blood Pressure is high.You are at Stage 2 Hypertension'
-                  bpans=true
+                  bpreport = 'Your blood Pressure is high.You are at Stage 2 Hypertension'
+                  bpans = true
                }
                else {
-                  bpreport='Your have Hypertensive crisis and requires immediate medical care'
-                  bpans=true
+                  bpreport = 'Your have Hypertensive crisis and requires immediate medical care'
+                  bpans = true
                }
             }
-            this.setState({bpresult:bpreport,bpabnormality:bpans},()=>{
-               axios({method:'post',
-                     url:'http://localhost:5000/api/bpresult',
-                    data:qs.stringify({
-                        username:this.props.username,
-                        diastolic:this.state.dbp,
-                        systolic:this.state.sbp,
-                        bpresult:this.state.bpresult
-                    })
+            this.setState({ bpresult: bpreport, bpabnormality: bpans }, () => {
+               axios({
+                  method: 'post',
+                  url: 'http://localhost:5000/api/bpresult',
+                  data: qs.stringify({
+                     username: this.props.username,
+                     diastolic: this.state.dbp,
+                     systolic: this.state.sbp,
+                     bpresult: this.state.bpresult
                   })
+               }).then(response => { }).
+                  catch(error => { })
             })
          }
       }
-      
+
       const diagnoseSugarHandler = (e) => {
          e.preventDefault()
-         let error=''
+         let error = ''
          if (this.state.age == 0 || this.state.gender == 'not selected' || this.state.sugar == 0) {
 
             if (this.state.age == 0) {
@@ -151,11 +154,11 @@ class Mainpage extends Component {
             if (this.state.sugar == 0) {
                error += "Please add blood glucose level readings. "
             }
-            this.setState({sugarresult:error})
+            this.setState({ sugarresult: error })
          }
          else {
-      
-            let report=''
+
+            let report = ''
             if (this.state.preg && this.state.age >= 13) {
                if (this.state.bloodSugarType === '1') {
                   if (this.state.sugar > 70 && this.state.sugar < 89) {
@@ -446,51 +449,54 @@ class Mainpage extends Component {
                   }
                }
             }
-            this.setState({ sugarresult: report,sugarabnormality:sugarans }, () => {
-              axios({method:'post',
-                    url:'http://localhost:5000/api/sugarresult',
-                    data:qs.stringify({
-                              username:this.props.username,
-                              bloodsugar:this.state.sugar,
-                              sugarresult:this.state.sugarresult,
-                              age:this.state.age,
-                              gender:this.state.gender,
-                           })
-                        })
+            this.setState({ sugarresult: report, sugarabnormality: sugarans }, () => {
+               axios({
+                  method: 'post',
+                  url: 'http://localhost:5000/api/sugarresult',
+                  data: qs.stringify({
+                     username: this.props.username,
+                     bloodsugar: this.state.sugar,
+                     sugarresult: this.state.sugarresult,
+                     age: this.state.age,
+                     gender: this.state.gender,
+                  })
+               }).then(response => { }).
+                  catch(error => {  })
             }
             )
          }
       }
-      let dietlist=[]
-      const diethandler=()=>{
-         if(this.state.sugarabnormality && this.state.sugarresult==='You are hyperglycemic'){
-
+      let dietlist = []
+      const diethandler = () => {
+         if (this.state.sugarabnormality && this.state.sugarresult === 'You are hyperglycemic') {
             dietlist.push(diet[0].hyperglycemia)
          }
-         if(this.state.sugarabnormality && this.state.sugarresult==='You are hypoglycemic'){
+         if (this.state.sugarabnormality && this.state.sugarresult === 'You are hypoglycemic') {
             dietlist.push(diet[1].hyperglycemia)
          }
-         if(this.state.bpabnormality && this.state.bpresult!=='You are perfectly Healthy' && this.state.bpresult!=='Your blood Pressure is low'){
+         if (this.state.bpabnormality && this.state.bpresult !== 'You are perfectly Healthy' && this.state.bpresult !== 'Your blood Pressure is low') {
             dietlist.push(diet[3].hyperbp)
          }
-         if(this.state.bpabnormality && this.state.bpresult=='Your blood Pressure is low'){
+         if (this.state.bpabnormality && this.state.bpresult == 'Your blood Pressure is low') {
             dietlist.push(diet[2].hypobp)
          }
-  
-         this.setState({diet_Reccomendations:dietlist})
+
+         this.setState({ diet_Reccomendations: dietlist }, () => {  })
       }
 
 
-      let dietReccomendations=null
-      dietReccomendations=this.state.diet_Reccomendations.map((i,ind)=>{return(
-                <p key={ind}>{i}</p>
-      )})
+      let dietReccomendations = null
+      dietReccomendations = this.state.diet_Reccomendations.map((i, ind) => {
+         return (
+            <p key={ind}>{i}</p>
+         )
+      })
 
-      const distance=(lat1, lon1, lat2, lon2, unit)=> {
-         var radlat1 = Math.PI * lat1/180
-         var radlat2 = Math.PI * lat2/180
-         var theta = lon1-lon2
-         var radtheta = Math.PI * theta/180
+      const distance = (lat1, lon1, lat2, lon2, unit) => {
+         var radlat1 = Math.PI * lat1 / 180
+         var radlat2 = Math.PI * lat2 / 180
+         var theta = lon1 - lon2
+         var radtheta = Math.PI * theta / 180
          var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
          if (dist > 1) {
             dist = 1;
@@ -505,11 +511,16 @@ class Mainpage extends Component {
       let hospitalbutton = null
       let hospitallist = null
       if (this.state.bpabnormality || this.state.sugarabnormality) {
-         hospitalbutton = <Button color="blue" className="btn" onClick={(e) => hospitalhandler(e)}>Hospitals near me</Button>
+         // hospitalbutton = <Button color="blue" className="btn" onClick={(e) => hospitalhandler(e)}>Hospitals near me</Button>
+         hospitalbutton = <Button color="blue" className="btn" onClick={(e) => hospitalhandler(e)}>
+            <BackDrop name="hospitals" hosp={this.state.hosplist} />
+         </Button>
       }
-      let dietbutton=null
+      let dietbutton = null
       if (this.state.bpabnormality || this.state.sugarabnormality) {
-         dietbutton = <Button color="blue" className="btn" onClick={(e) => diethandler(e)}>Diet Reccomendations</Button>
+         dietbutton = <Button color="blue" className="btn" onClick={(e) => diethandler(e)}>
+            <BackDrop diet={dietReccomendations} name="diet" />
+         </Button>
       }
 
       let hosp = []
@@ -518,25 +529,23 @@ class Mainpage extends Component {
          navigator.geolocation.getCurrentPosition(position => {
             this.setState({ userlatitude: position.coords.latitude, userlongitude: position.coords.longitude },
                () => {
-                 
                   for (var i = 0; i < hospitaldata.length; i++) {
                      let x = distance(this.state.userlatitude, this.state.userlongitude, hospitaldata[i].lat, hospitaldata[i].long)
                      if (x <= 5000) {
-                       
                         hosp.push(hospitaldata[i])
                      }
                   }
                   this.setState({ hosplist: hosp }, () => {
-                     
                   })
                })
          })
       }
 
-     if(this.state.hosplist!=[]){
-        hospitallist=this.state.hosplist.map((i,ind)=>{return(<div><li key={ind}>{i.name}</li></div>)})
-     }
-     
+      if (this.state.hosplist != []) {
+         hospitallist = this.state.hosplist.map((i, ind) => { return (<div><li key={ind}>{i.name}</li></div>) })
+         hospitallist = <BackDrop hosp={this.state.hosplist} />
+      }
+
       return (
          <div className="main">
             <div>
@@ -549,7 +558,7 @@ class Mainpage extends Component {
                   <br />
                </strong>
 
-               
+
                <p>Systolic(Top) Blood Pressure</p>
                <input type="text" id="bp" onChange={(e) => sbpHandler(e)} placeholder={this.state.sbp}></input>
                <p>Diastolic(Bottom) Blood Pressure</p>
@@ -561,6 +570,8 @@ class Mainpage extends Component {
                   <p>{this.state.bpresult}</p>
                </div>
                <Button color="blue" className="btn" onClick={(e) => diagnoseBPHandler(e)}>Diagnose</Button>
+               {hospitalbutton}
+               {dietbutton}
             </div>
             <div className="co">
                <p> <strong>Sugar</strong> </p>
@@ -591,10 +602,9 @@ class Mainpage extends Component {
                </div>
                <p>{this.state.sugarresult}</p>
                <Button color="blue" className="btn" onClick={(e) => diagnoseSugarHandler(e)}>Diagnose</Button>
+               {/* {dietReccomendations} */}
                {hospitalbutton}
                {dietbutton}
-               {dietReccomendations}
-               {hospitallist}
             </div>
             <br />
             <br />
@@ -602,10 +612,9 @@ class Mainpage extends Component {
       )
    }
 }
-const mapStateToProps=state=>{
-   
-    return{
-   username:state.username
-    }
+const mapStateToProps = state => {
+   return {
+      username: state.username
+   }
 }
 export default connect(mapStateToProps)(Mainpage)

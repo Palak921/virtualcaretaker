@@ -16,7 +16,7 @@ function ModalExampleModal(props) {
                 <Modal.Content>
                     {/* <Modal.Description> */}
                     {props.hosp.map((hospital, i) => {
-                        return (
+                        return ( 
                             <div>
                                 <li key={i}>
                                     <strong>{i + 1}</strong>
